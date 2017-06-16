@@ -13,6 +13,7 @@
 #import "ZPPlayerViewController.h"
 #import "ZPChannelPageViewCell.h"
 #import "MJRefresh.h"
+#import "MBProgressHUD.h"
 
 
 static NSString* const kChannelBaseURL = @"http://iface.qiyi.com/openapi/batch/channel";
@@ -42,12 +43,24 @@ static const NSUInteger kChannelPageSize = 30;
  *  设置下拉刷新和上拉加载更多
  */
 -(void)setupRefreshControl {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self fetchData];
     }];
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+    [header setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
+    [header setTitle:@"松开加载" forState:MJRefreshStatePulling];
+    [header setTitle:@"加载失败" forState:MJRefreshStateNoMoreData];
+    
+    self.tableView.mj_header = header;
+    
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self fetchMoreData];
     }];
+    [footer setTitle:@"上拉加载更多" forState:MJRefreshStateIdle];
+    [footer setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
+    [footer setTitle:@"松开加载更多" forState:MJRefreshStatePulling];
+    [footer setTitle:@"加载失败" forState:MJRefreshStateNoMoreData];
+    self.tableView.mj_footer = footer;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,7 +89,7 @@ static const NSUInteger kChannelPageSize = 30;
     NSDictionary *para = @{ @"type" : @"detail",
                     @"channel_name" : self.channel.name,
                             @"mode" : @"11",
-                     @"is_purchase" : @"2",
+//                     @"is_purchase" : @"2",
                        @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
                          @"version" : @"7.5",
                            @"app_k" : @"f0f6c3ee5709615310c0f053dc9c65f2",
@@ -120,7 +133,7 @@ static const NSUInteger kChannelPageSize = 30;
         }
         self.videoList = modelArr;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self showData];
+            [self reloadData];
         });
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -147,7 +160,7 @@ static const NSUInteger kChannelPageSize = 30;
     NSDictionary *para = @{ @"type" : @"detail",
                             @"channel_name" : self.channel.name,
                             @"mode" : @"11",
-                            @"is_purchase" : @"2",
+//                            @"is_purchase" : @"2",
                             @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
                             @"page_num" : [NSString stringWithFormat:@"%d", pageIndex],
                             @"version" : @"7.5",
@@ -190,7 +203,7 @@ static const NSUInteger kChannelPageSize = 30;
             [self.videoList addObject:[ZPVideoInfo videoInfoWithDict:dict]];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self showData];
+            [self reloadData];
         });
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -201,25 +214,47 @@ static const NSUInteger kChannelPageSize = 30;
     }];
 }
 
+-(void)showHudWithMessage:(NSString*)msg duration:(NSTimeInterval)duration{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.label.text = msg;
+    [hud hideAnimated:YES afterDelay:duration];
+}
+
 /**
  *  网络请求失败
  */
 -(void)requestFailed {
-    NSLog(@"网络请求失败");
+    NSString *msg = @"网络请求失败";
+    NSLog(@"%@", msg);
+    [self showHudWithMessage:msg duration:2.0f];
+    [self cancelRefreshing];
 }
 
 /**
  *  获取数据失败
  */
 -(void)fetchDataFailed {
-    NSLog(@"获取数据失败");
+    NSString *msg = @"获取数据失败";
+    NSLog(@"%@", msg);
+    [self showHudWithMessage:msg duration:2.0f];
+    [self cancelRefreshing];
 }
 
 /**
- *  网络请求成功
+ *  重新显示数据
  */
--(void)showData {
+-(void)reloadData {
     [self.tableView reloadData];
+    [self cancelRefreshing];
+}
+
+//-(void)
+
+/**
+ *  停止上拉下拉转着的菊花
+ */
+-(void)cancelRefreshing {
     [self.tableView.mj_header endRefreshing];
     [self.tableView.mj_footer endRefreshing];
 }
