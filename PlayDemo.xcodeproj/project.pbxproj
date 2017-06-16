@@ -50,6 +50,11 @@
 		18AE603A1EF3886300F56F59 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE60241EF3886300F56F59 /* UIScrollView+MJExtension.m */; };
 		18AE603B1EF3886300F56F59 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE60261EF3886300F56F59 /* UIScrollView+MJRefresh.m */; };
 		18AE603C1EF3886300F56F59 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE60281EF3886300F56F59 /* UIView+MJExtension.m */; };
+		18AEF2E51EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF2E41EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m */; };
+		18AEF3441EF3CC020060C2D9 /* ZYBannerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF33E1EF3CC020060C2D9 /* ZYBannerCell.m */; };
+		18AEF3451EF3CC020060C2D9 /* ZYBannerFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF3401EF3CC020060C2D9 /* ZYBannerFooter.m */; };
+		18AEF3461EF3CC020060C2D9 /* ZYBannerView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18AEF3411EF3CC020060C2D9 /* ZYBannerView.bundle */; };
+		18AEF3471EF3CC020060C2D9 /* ZYBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF3431EF3CC020060C2D9 /* ZYBannerView.m */; };
 		18C551FF1ED703120012E16B /* ZPPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C551FE1ED703120012E16B /* ZPPlayerViewController.m */; };
 		18C552051ED733190012E16B /* ZPVideoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C552041ED733190012E16B /* ZPVideoInfo.m */; };
 		18C552081ED8104F0012E16B /* ZPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C552071ED8104F0012E16B /* ZPTools.m */; };
@@ -224,6 +229,15 @@
 		18AE60261EF3886300F56F59 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		18AE60271EF3886300F56F59 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		18AE60281EF3886300F56F59 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		18AEF2E31EF3C6DC0060C2D9 /* ZPRecommendNewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPRecommendNewViewController.h; sourceTree = "<group>"; };
+		18AEF2E41EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPRecommendNewViewController.m; sourceTree = "<group>"; };
+		18AEF33D1EF3CC020060C2D9 /* ZYBannerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBannerCell.h; sourceTree = "<group>"; };
+		18AEF33E1EF3CC020060C2D9 /* ZYBannerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBannerCell.m; sourceTree = "<group>"; };
+		18AEF33F1EF3CC020060C2D9 /* ZYBannerFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBannerFooter.h; sourceTree = "<group>"; };
+		18AEF3401EF3CC020060C2D9 /* ZYBannerFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBannerFooter.m; sourceTree = "<group>"; };
+		18AEF3411EF3CC020060C2D9 /* ZYBannerView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYBannerView.bundle; sourceTree = "<group>"; };
+		18AEF3421EF3CC020060C2D9 /* ZYBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBannerView.h; sourceTree = "<group>"; };
+		18AEF3431EF3CC020060C2D9 /* ZYBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBannerView.m; sourceTree = "<group>"; };
 		18C551FD1ED703120012E16B /* ZPPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPPlayerViewController.h; sourceTree = "<group>"; };
 		18C551FE1ED703120012E16B /* ZPPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPPlayerViewController.m; sourceTree = "<group>"; };
 		18C552031ED733190012E16B /* ZPVideoInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPVideoInfo.h; sourceTree = "<group>"; };
@@ -378,6 +392,7 @@
 		1805A7941EEBA04E00DD58FE /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				18AEF33C1EF3CC020060C2D9 /* ZYBannerView */,
 				18AE5FFA1EF3886300F56F59 /* MJRefresh */,
 				1897CE9D1EF368B10087A183 /* IOSPlayerLib */,
 				18A6156C1EEFE4CA0081BEDD /* AFNetworking */,
@@ -651,6 +666,20 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		18AEF33C1EF3CC020060C2D9 /* ZYBannerView */ = {
+			isa = PBXGroup;
+			children = (
+				18AEF33D1EF3CC020060C2D9 /* ZYBannerCell.h */,
+				18AEF33E1EF3CC020060C2D9 /* ZYBannerCell.m */,
+				18AEF33F1EF3CC020060C2D9 /* ZYBannerFooter.h */,
+				18AEF3401EF3CC020060C2D9 /* ZYBannerFooter.m */,
+				18AEF3411EF3CC020060C2D9 /* ZYBannerView.bundle */,
+				18AEF3421EF3CC020060C2D9 /* ZYBannerView.h */,
+				18AEF3431EF3CC020060C2D9 /* ZYBannerView.m */,
+			);
+			path = ZYBannerView;
+			sourceTree = "<group>";
+		};
 		18C552001ED732500012E16B /* PlayerPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -745,6 +774,8 @@
 			children = (
 				18F4E2621EED6E2E00D5659C /* ZPRecommendPageViewController.h */,
 				18F4E2631EED6E2E00D5659C /* ZPRecommendPageViewController.m */,
+				18AEF2E31EF3C6DC0060C2D9 /* ZPRecommendNewViewController.h */,
+				18AEF2E41EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -970,6 +1001,7 @@
 				E56B6CA91EC1A12200648AF4 /* playerBack@3x.png in Resources */,
 				E56B6CAE1EC1A77D00648AF4 /* pause@2x.png in Resources */,
 				E5F555D01EC0004F004DFC8D /* LaunchScreen.storyboard in Resources */,
+				18AEF3461EF3CC020060C2D9 /* ZYBannerView.bundle in Resources */,
 				E56B6CAF1EC1A77D00648AF4 /* pause@3x.png in Resources */,
 				E5F555CD1EC0004F004DFC8D /* Assets.xcassets in Resources */,
 				E56B6CB11EC1A77D00648AF4 /* play@3x.png in Resources */,
@@ -997,7 +1029,9 @@
 				18F4E25C1EEC20C000D5659C /* ZPVideoInfoView.m in Sources */,
 				18AE603B1EF3886300F56F59 /* UIScrollView+MJRefresh.m in Sources */,
 				189A116B1EF2A56B007B615C /* UIProgressView+AFNetworking.m in Sources */,
+				18AEF3471EF3CC020060C2D9 /* ZYBannerView.m in Sources */,
 				189A11681EF2A56B007B615C /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				18AEF3451EF3CC020060C2D9 /* ZYBannerFooter.m in Sources */,
 				E5F555C81EC0004F004DFC8D /* ViewController.m in Sources */,
 				189A116C1EF2A56B007B615C /* UIRefreshControl+AFNetworking.m in Sources */,
 				18AE60341EF3886300F56F59 /* MJRefreshGifHeader.m in Sources */,
@@ -1005,6 +1039,7 @@
 				18E52A761EEFA6BF00244A7A /* TYTabPagerController.m in Sources */,
 				18C5520D1ED917430012E16B /* ZPVideoProgressBar.m in Sources */,
 				18AE60351EF3886300F56F59 /* MJRefreshNormalHeader.m in Sources */,
+				18AEF2E51EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m in Sources */,
 				18A6157C1EEFE4D30081BEDD /* AFSecurityPolicy.m in Sources */,
 				E5F555C51EC0004F004DFC8D /* AppDelegate.m in Sources */,
 				18F4E25F1EED5D9D00D5659C /* ZPChannelInfo.m in Sources */,
@@ -1026,6 +1061,7 @@
 				189A11661EF2A56B007B615C /* AFImageDownloader.m in Sources */,
 				18AE60381EF3886300F56F59 /* MJRefreshConst.m in Sources */,
 				18AE603C1EF3886300F56F59 /* UIView+MJExtension.m in Sources */,
+				18AEF3441EF3CC020060C2D9 /* ZYBannerCell.m in Sources */,
 				18A6157F1EEFE4D30081BEDD /* AFURLSessionManager.m in Sources */,
 				189A11671EF2A56B007B615C /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E56B6CA41EC169AA00648AF4 /* PlayViewController.m in Sources */,
