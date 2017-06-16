@@ -12,6 +12,7 @@
 #import "AFHTTPSessionManager.h"
 #import "ZPPlayerViewController.h"
 #import "ZPChannelPageViewCell.h"
+#import "MJRefresh.h"
 
 
 static NSString* const kChannelBaseURL = @"http://iface.qiyi.com/openapi/batch/channel";
@@ -31,15 +32,22 @@ static const NSUInteger kChannelPageSize = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.rowHeight = kCellImageHeight + kCellTitleLabelHeight;
+    self.tableView.rowHeight = kCellImageHeight + 2 * kCellMargin;
 //    self.tableView.rowHeight = 150;
     [self fetchData];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setupRefreshControl];
+}
+
+/**
+ *  设置下拉刷新和上拉加载更多
+ */
+-(void)setupRefreshControl {
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self fetchData];
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self fetchMoreData];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,12 +66,18 @@ static const NSUInteger kChannelPageSize = 30;
  *  获取网络数据
  */
 -(void)fetchData {
+    int pageSize = 0;
+    if (self.videoList.count == 0) {
+        pageSize = kChannelPageSize;
+    } else {
+        pageSize = self.videoList.count;
+    }
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     NSDictionary *para = @{ @"type" : @"detail",
                     @"channel_name" : self.channel.name,
                             @"mode" : @"11",
                      @"is_purchase" : @"2",
-                       @"page_size" : [NSString stringWithFormat:@"%d", kChannelPageSize],
+                       @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
                          @"version" : @"7.5",
                            @"app_k" : @"f0f6c3ee5709615310c0f053dc9c65f2",
                            @"app_v" : @"8.4",
@@ -91,25 +105,101 @@ static const NSUInteger kChannelPageSize = 30;
         NSDictionary *dataDict = responseObject;
         NSNumber *code = dataDict[@"code"];
         if ([code integerValue] != 100000) {
+            //获取数据失败
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self fetchDataFailed];
             });
             return;
         }
+        
+        //获取数据成功
         NSArray *dictArr = dataDict[@"data"][@"video_list"];
         NSMutableArray *modelArr = [NSMutableArray array];
         for (NSDictionary *dict in dictArr) {
             [modelArr addObject:[ZPVideoInfo videoInfoWithDict:dict]];
         }
         self.videoList = modelArr;
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showData];
+        });
+
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //网络请求失败
         dispatch_async(dispatch_get_main_queue(), ^{
             [self requestFailed];
         });
     }];
 }
 
+/**
+ *  获取更多网络数据
+ */
+-(void)fetchMoreData {
+    int pageSize = 0;
+    
+    if (self.videoList.count == 0) {
+        pageSize = kChannelPageSize;
+    } else {
+        pageSize = self.videoList.count;
+    }
+    int pageIndex = self.videoList.count / kChannelPageSize + 1;
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDictionary *para = @{ @"type" : @"detail",
+                            @"channel_name" : self.channel.name,
+                            @"mode" : @"11",
+                            @"is_purchase" : @"2",
+                            @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
+                            @"page_num" : [NSString stringWithFormat:@"%d", pageIndex],
+                            @"version" : @"7.5",
+                            @"app_k" : @"f0f6c3ee5709615310c0f053dc9c65f2",
+                            @"app_v" : @"8.4",
+                            @"app_t" : @"0",
+                            @"platform_id" : @"12",
+                            @"dev_os" : @"10.3.1",
+                            @"dev_ua" : @"iPhone9,3",
+                            
+                            @"dev_hw" : @"%7B%22cpu%22%3A0%2C%22gpu%22%3A%22%22%2C%22mem%22%3A%2250.4MB%22%7D",
+                            
+                            @"net_sts" : @"1",
+                            @"scrn_sts" : @"1",
+                            @"scrn_res" : @"1334*750",
+                            @"scrn_dpi" : @"153600",
+                            @"qyid" : @"87390BD2-DACE- 497B-9CD4- 2FD14354B2A4",
+                            @"secure_v" : @"1",
+                            @"secure_p" : @"iPhone",
+                            @"core" : @"1",
+                            @"req_sn" : @"1493946331320",
+                            @"req_times" : @"1"};
+    
+    [manager GET:kChannelBaseURL parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"channel page request success");
+        
+        NSDictionary *dataDict = responseObject;
+        NSNumber *code = dataDict[@"code"];
+        if ([code integerValue] != 100000) {
+            //获取数据失败
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self fetchDataFailed];
+            });
+            return;
+        }
+        
+        //获取数据成功
+        NSArray *dictArr = dataDict[@"data"][@"video_list"];
+        for (NSDictionary *dict in dictArr) {
+            [self.videoList addObject:[ZPVideoInfo videoInfoWithDict:dict]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showData];
+        });
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        //网络请求失败
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self requestFailed];
+        });
+    }];
+}
 
 /**
  *  网络请求失败
@@ -123,6 +213,15 @@ static const NSUInteger kChannelPageSize = 30;
  */
 -(void)fetchDataFailed {
     NSLog(@"获取数据失败");
+}
+
+/**
+ *  网络请求成功
+ */
+-(void)showData {
+    [self.tableView reloadData];
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 #pragma mark - Table view data source

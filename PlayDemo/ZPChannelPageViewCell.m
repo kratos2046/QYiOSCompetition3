@@ -12,17 +12,23 @@
 
 
 
+
 const CGFloat kCellImageHeight = 100;
 const CGFloat kCellTitleLabelHeight = 20;
+const CGFloat kCellMargin = 5;
+static const CGFloat kVipViewSize = 12;
 
 @interface ZPChannelPageViewCell ()
 
 /**
- *  视频图片
+ *  视频封面
  */
 @property (nonatomic, weak) UIImageView *coverView;
+/**
+ *  视频标题
+ */
 @property (nonatomic, weak) UILabel *titleLabel;
-
+@property (nonatomic, weak) UIImageView *isVipView;
 @end
 
 @implementation ZPChannelPageViewCell
@@ -68,48 +74,80 @@ const CGFloat kCellTitleLabelHeight = 20;
 //    titleLabel.backgroundColor = [UIColor greenColor];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
+    
+    UIImageView *isVipView = [[UIImageView alloc]init];
+    isVipView.image = [UIImage imageNamed:@"vip"];
+    [self.coverView addSubview:isVipView];
+    self.isVipView = isVipView;
 }
 
--(void)layoutSubviews {
-    [super layoutSubviews];
-    
-    
-    CGSize contentViewSize = self.contentView.bounds.size;
-    CGSize imageSize = self.coverView.image.size;
-    CGFloat coverH = kCellImageHeight;
-    CGFloat coverW = (imageSize.width == 0) ? 0 : coverH * imageSize.width / imageSize.height;
-    CGFloat coverX = (contentViewSize.width - coverW) / 2;
-    CGFloat coverY = 0;
-    self.coverView.frame = CGRectMake(coverX, coverY, coverW, coverH);
-    
-    CGFloat titleLabelH = kCellTitleLabelHeight;
-    CGFloat titleLabelW = contentViewSize.width;
-    CGFloat titleLabelX = 0;
-    CGFloat titleLabelY = coverH;
-    self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
-}
+//-(void)layoutSubviews {
+//    [super layoutSubviews];
+//    
+//    CGSize contentViewSize = self.contentView.bounds.size;
+//    CGSize imageSize = self.coverView.image.size;
+//    CGFloat coverH = kCellImageHeight;
+//    CGFloat coverW = (imageSize.width == 0) ? 0 : coverH * imageSize.width / imageSize.height;
+//    CGFloat coverX = (contentViewSize.width - coverW) / 2;
+//    CGFloat coverY = 0;
+//    self.coverView.frame = CGRectMake(coverX, coverY, coverW, coverH);
+//    
+//    CGFloat titleLabelH = kCellTitleLabelHeight;
+//    CGFloat titleLabelW = contentViewSize.width;
+//    CGFloat titleLabelX = 0;
+//    CGFloat titleLabelY = coverH;
+//    self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
+//  
+//}
 
 #pragma mark - Setter
 
 -(void)setVideoInfo:(ZPVideoInfo *)videoInfo {
     _videoInfo = videoInfo;
-    self.titleLabel.text = videoInfo.title;
+    [self setCellData:videoInfo];
+    [self setCellFrame:videoInfo];
+}
+
+/**
+ *  设置cell显示数据
+ */
+-(void)setCellData:(ZPVideoInfo*)info {
+    self.titleLabel.text = info.title;
+    [self.coverView setImageWithURL:[NSURL URLWithString:info.img]];
+    if ([info.isVip isEqualToString:@"1"]) {
+        self.isVipView.hidden = NO;
+    } else {
+        self.isVipView.hidden = YES;
+    }
+}
+
+/**
+ *  设置cell布局
+ */
+-(void)setCellFrame:(ZPVideoInfo*)info {
+    CGSize contentViewSize = self.contentView.bounds.size;
+    CGSize imageSize = self.coverView.image.size;
     
-    NSURL *imgUrl = [NSURL URLWithString:videoInfo.img];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:imgUrl];
-    [self.coverView setImageWithURL:imgUrl];
-//    [self.coverView setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"placeholderImage.jpg"]];
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-//    [super setSelected:	 animated:animated];
-
-    // Configure the view for the selected state
+    
+    CGFloat coverX = kCellMargin;
+    CGFloat coverY = kCellMargin;
+    CGFloat coverH = kCellImageHeight;
+    CGFloat coverW = (self.coverView.image) ?  coverH * imageSize.width / imageSize.height : 0;
+    self.coverView.frame = CGRectMake(coverX, coverY, coverW, coverH);
+    
+    CGFloat vipW = kVipViewSize;
+    CGFloat vipH = kVipViewSize;
+    CGFloat vipX = CGRectGetMaxX(self.coverView.frame) + kCellMargin;
+    CGFloat vipY = kCellMargin;
+    self.isVipView.frame = CGRectMake(vipX, vipY, vipW, vipH);
+    
+    
+    CGFloat titleLabelH = kCellTitleLabelHeight;
+    CGFloat titleLabelW = contentViewSize.width - coverW - vipW - 3 * kCellMargin;
+    CGFloat titleLabelX = CGRectGetMaxX(self.isVipView.frame) + kCellMargin;
+    CGFloat titleLabelY = (contentViewSize.height - titleLabelH) / 2;
+    
+    self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
 }
 
 @end

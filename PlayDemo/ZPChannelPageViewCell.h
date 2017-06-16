@@ -11,6 +11,7 @@
 
 extern const CGFloat kCellImageHeight;
 extern const CGFloat kCellTitleLabelHeight;
+extern const CGFloat kCellMargin;
 
 @class ZPVideoInfo;
 

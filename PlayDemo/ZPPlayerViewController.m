@@ -116,7 +116,8 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
         [playController stopPlayer];
     }
     [self removeSubView];
-    NSLog(@"dealloc");
+    self.playController.view.transform = CGAffineTransformIdentity;
+    NSLog(@"player controller dealloc");
 }
 
 #pragma mark - Set Player State
