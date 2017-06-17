@@ -12,7 +12,6 @@
 		184FF35B1EE82186002293B5 /* DCPathItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FF3591EE82186002293B5 /* DCPathItemButton.m */; };
 		188135BA1EF4315E00F77E62 /* ZPSearchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */; };
 		189629261EF03CD5005C3889 /* ZPChannelPageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */; };
-		1897CE9F1EF368C70087A183 /* libav.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1897CE9E1EF368C70087A183 /* libav.a */; };
 		189A11651EF2A56B007B615C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11521EF2A56B007B615C /* AFAutoPurgingImageCache.m */; };
 		189A11661EF2A56B007B615C /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11541EF2A56B007B615C /* AFImageDownloader.m */; };
 		189A11671EF2A56B007B615C /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11561EF2A56B007B615C /* AFNetworkActivityIndicatorManager.m */; };
@@ -60,6 +59,7 @@
 		18C552051ED733190012E16B /* ZPVideoInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C552041ED733190012E16B /* ZPVideoInfo.m */; };
 		18C552081ED8104F0012E16B /* ZPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C552071ED8104F0012E16B /* ZPTools.m */; };
 		18C5520D1ED917430012E16B /* ZPVideoProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C5520C1ED917430012E16B /* ZPVideoProgressBar.m */; };
+		18C75BD21EF5554500EF5B74 /* libav.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C75BD11EF5554500EF5B74 /* libav.a */; };
 		18E52A751EEFA6BF00244A7A /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A701EEFA6BF00244A7A /* TYPagerController.m */; };
 		18E52A761EEFA6BF00244A7A /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A721EEFA6BF00244A7A /* TYTabPagerController.m */; };
 		18E52A771EEFA6BF00244A7A /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A741EEFA6BF00244A7A /* TYTabButtonPagerController.m */; };
@@ -139,20 +139,6 @@
 		188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPSearchPageViewController.m; sourceTree = "<group>"; };
 		189629241EF03CD5005C3889 /* ZPChannelPageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPChannelPageViewCell.h; sourceTree = "<group>"; };
 		189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPChannelPageViewCell.m; sourceTree = "<group>"; };
-		1897CE9E1EF368C70087A183 /* libav.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libav.a; path = ../../IOSPlayerLib/libav.a; sourceTree = "<group>"; };
-		1897CEA11EF368FA0087A183 /* QYPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = QYPlayerController.h; path = ../../IOSPlayerLib/include/QYPlayerController.h; sourceTree = "<group>"; };
-		1897CEA31EF369090087A183 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = "../../IOSPlayerLib/include/asihttp include/ASIAuthenticationDialog.h"; sourceTree = "<group>"; };
-		1897CEA41EF369090087A183 /* ASICacheDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = "../../IOSPlayerLib/include/asihttp include/ASICacheDelegate.h"; sourceTree = "<group>"; };
-		1897CEA51EF369090087A183 /* ASIDataCompressor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIDataCompressor.h; path = "../../IOSPlayerLib/include/asihttp include/ASIDataCompressor.h"; sourceTree = "<group>"; };
-		1897CEA61EF369090087A183 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIDataDecompressor.h; path = "../../IOSPlayerLib/include/asihttp include/ASIDataDecompressor.h"; sourceTree = "<group>"; };
-		1897CEA71EF369090087A183 /* ASIDownloadCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIDownloadCache.h; path = "../../IOSPlayerLib/include/asihttp include/ASIDownloadCache.h"; sourceTree = "<group>"; };
-		1897CEA81EF369090087A183 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIFormDataRequest.h; path = "../../IOSPlayerLib/include/asihttp include/ASIFormDataRequest.h"; sourceTree = "<group>"; };
-		1897CEA91EF369090087A183 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequest.h; path = "../../IOSPlayerLib/include/asihttp include/ASIHTTPRequest.h"; sourceTree = "<group>"; };
-		1897CEAA1EF369090087A183 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestConfig.h; path = "../../IOSPlayerLib/include/asihttp include/ASIHTTPRequestConfig.h"; sourceTree = "<group>"; };
-		1897CEAB1EF369090087A183 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestDelegate.h; path = "../../IOSPlayerLib/include/asihttp include/ASIHTTPRequestDelegate.h"; sourceTree = "<group>"; };
-		1897CEAC1EF369090087A183 /* ASIInputStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIInputStream.h; path = "../../IOSPlayerLib/include/asihttp include/ASIInputStream.h"; sourceTree = "<group>"; };
-		1897CEAD1EF369090087A183 /* ASINetworkQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASINetworkQueue.h; path = "../../IOSPlayerLib/include/asihttp include/ASINetworkQueue.h"; sourceTree = "<group>"; };
-		1897CEAE1EF369090087A183 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ASIProgressDelegate.h; path = "../../IOSPlayerLib/include/asihttp include/ASIProgressDelegate.h"; sourceTree = "<group>"; };
 		189A11511EF2A56B007B615C /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAutoPurgingImageCache.h; sourceTree = "<group>"; };
 		189A11521EF2A56B007B615C /* AFAutoPurgingImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAutoPurgingImageCache.m; sourceTree = "<group>"; };
 		189A11531EF2A56B007B615C /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
@@ -249,6 +235,20 @@
 		18C552071ED8104F0012E16B /* ZPTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPTools.m; sourceTree = "<group>"; };
 		18C5520B1ED917430012E16B /* ZPVideoProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPVideoProgressBar.h; sourceTree = "<group>"; };
 		18C5520C1ED917430012E16B /* ZPVideoProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPVideoProgressBar.m; sourceTree = "<group>"; };
+		18C75BC41EF5554500EF5B74 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
+		18C75BC51EF5554500EF5B74 /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
+		18C75BC61EF5554500EF5B74 /* ASIDataCompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataCompressor.h; sourceTree = "<group>"; };
+		18C75BC71EF5554500EF5B74 /* ASIDataDecompressor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDataDecompressor.h; sourceTree = "<group>"; };
+		18C75BC81EF5554500EF5B74 /* ASIDownloadCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIDownloadCache.h; sourceTree = "<group>"; };
+		18C75BC91EF5554500EF5B74 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
+		18C75BCA1EF5554500EF5B74 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
+		18C75BCB1EF5554500EF5B74 /* ASIHTTPRequestConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestConfig.h; sourceTree = "<group>"; };
+		18C75BCC1EF5554500EF5B74 /* ASIHTTPRequestDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequestDelegate.h; sourceTree = "<group>"; };
+		18C75BCD1EF5554500EF5B74 /* ASIInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIInputStream.h; sourceTree = "<group>"; };
+		18C75BCE1EF5554500EF5B74 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
+		18C75BCF1EF5554500EF5B74 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
+		18C75BD01EF5554500EF5B74 /* QYPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPlayerController.h; sourceTree = "<group>"; };
+		18C75BD11EF5554500EF5B74 /* libav.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libav.a; sourceTree = "<group>"; };
 		18E52A6F1EEFA6BF00244A7A /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
 		18E52A701EEFA6BF00244A7A /* TYPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPagerController.m; sourceTree = "<group>"; };
 		18E52A711EEFA6BF00244A7A /* TYTabPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabPagerController.h; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 				E5C4410B1EC02F49003499D4 /* NotificationCenter.framework in Frameworks */,
 				E5C441091EC02F42003499D4 /* CoreGraphics.framework in Frameworks */,
 				E5C441061EC02F3B003499D4 /* AVFoundation.framework in Frameworks */,
-				1897CE9F1EF368C70087A183 /* libav.a in Frameworks */,
+				18C75BD21EF5554500EF5B74 /* libav.a in Frameworks */,
 				E5C441071EC02F3B003499D4 /* Foundation.framework in Frameworks */,
 				E5C441031EC02F33003499D4 /* UIKit.framework in Frameworks */,
 				E5C441011EC02F2B003499D4 /* QuartzCore.framework in Frameworks */,
@@ -395,9 +395,9 @@
 		1805A7941EEBA04E00DD58FE /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				18C75BC11EF5554500EF5B74 /* IOSPlayerLib */,
 				18AEF33C1EF3CC020060C2D9 /* ZYBannerView */,
 				18AE5FFA1EF3886300F56F59 /* MJRefresh */,
-				1897CE9D1EF368B10087A183 /* IOSPlayerLib */,
 				18A6156C1EEFE4CA0081BEDD /* AFNetworking */,
 				18E52A6E1EEFA69E00244A7A /* TYPagerController */,
 				1805A7981EEBA07F00DD58FE /* MBProgressHUD */,
@@ -459,43 +459,6 @@
 				189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		1897CE9D1EF368B10087A183 /* IOSPlayerLib */ = {
-			isa = PBXGroup;
-			children = (
-				1897CEA01EF368DF0087A183 /* include */,
-				1897CE9E1EF368C70087A183 /* libav.a */,
-			);
-			name = IOSPlayerLib;
-			sourceTree = "<group>";
-		};
-		1897CEA01EF368DF0087A183 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				1897CEA21EF369000087A183 /* asihttp include */,
-				1897CEA11EF368FA0087A183 /* QYPlayerController.h */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		1897CEA21EF369000087A183 /* asihttp include */ = {
-			isa = PBXGroup;
-			children = (
-				1897CEA31EF369090087A183 /* ASIAuthenticationDialog.h */,
-				1897CEA41EF369090087A183 /* ASICacheDelegate.h */,
-				1897CEA51EF369090087A183 /* ASIDataCompressor.h */,
-				1897CEA61EF369090087A183 /* ASIDataDecompressor.h */,
-				1897CEA71EF369090087A183 /* ASIDownloadCache.h */,
-				1897CEA81EF369090087A183 /* ASIFormDataRequest.h */,
-				1897CEA91EF369090087A183 /* ASIHTTPRequest.h */,
-				1897CEAA1EF369090087A183 /* ASIHTTPRequestConfig.h */,
-				1897CEAB1EF369090087A183 /* ASIHTTPRequestDelegate.h */,
-				1897CEAC1EF369090087A183 /* ASIInputStream.h */,
-				1897CEAD1EF369090087A183 /* ASINetworkQueue.h */,
-				1897CEAE1EF369090087A183 /* ASIProgressDelegate.h */,
-			);
-			name = "asihttp include";
 			sourceTree = "<group>";
 		};
 		189A11501EF2A52A007B615C /* UIKit+AFNetworking */ = {
@@ -746,6 +709,44 @@
 				184FF3551EE8216E002293B5 /* ZPVideoProgressBar */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		18C75BC11EF5554500EF5B74 /* IOSPlayerLib */ = {
+			isa = PBXGroup;
+			children = (
+				18C75BC21EF5554500EF5B74 /* include */,
+				18C75BD11EF5554500EF5B74 /* libav.a */,
+			);
+			name = IOSPlayerLib;
+			path = ../../IOSPlayerLib;
+			sourceTree = "<group>";
+		};
+		18C75BC21EF5554500EF5B74 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				18C75BC31EF5554500EF5B74 /* asihttp include */,
+				18C75BD01EF5554500EF5B74 /* QYPlayerController.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		18C75BC31EF5554500EF5B74 /* asihttp include */ = {
+			isa = PBXGroup;
+			children = (
+				18C75BC41EF5554500EF5B74 /* ASIAuthenticationDialog.h */,
+				18C75BC51EF5554500EF5B74 /* ASICacheDelegate.h */,
+				18C75BC61EF5554500EF5B74 /* ASIDataCompressor.h */,
+				18C75BC71EF5554500EF5B74 /* ASIDataDecompressor.h */,
+				18C75BC81EF5554500EF5B74 /* ASIDownloadCache.h */,
+				18C75BC91EF5554500EF5B74 /* ASIFormDataRequest.h */,
+				18C75BCA1EF5554500EF5B74 /* ASIHTTPRequest.h */,
+				18C75BCB1EF5554500EF5B74 /* ASIHTTPRequestConfig.h */,
+				18C75BCC1EF5554500EF5B74 /* ASIHTTPRequestDelegate.h */,
+				18C75BCD1EF5554500EF5B74 /* ASIInputStream.h */,
+				18C75BCE1EF5554500EF5B74 /* ASINetworkQueue.h */,
+				18C75BCF1EF5554500EF5B74 /* ASIProgressDelegate.h */,
+			);
+			path = "asihttp include";
 			sourceTree = "<group>";
 		};
 		18E52A6E1EEFA69E00244A7A /* TYPagerController */ = {

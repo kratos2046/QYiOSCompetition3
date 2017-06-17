@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ZPHomePageViewController.h"
+#import "ViewController.h"
 #import "ZPSearchPageViewController.h"
 #import "QYPlayerController.h"
 
@@ -28,6 +29,8 @@
     UIWindow *windows = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIViewController *vc = [[ZPHomePageViewController alloc] init];
 //    UIViewController *vc = [[ZPSearchPageViewController alloc] init];
+    
+//    UIViewController *vc = [[ViewController alloc] init];
     
     
 //    ZPChannelPageController *vc = [[ZPChannelPageController alloc] init];
