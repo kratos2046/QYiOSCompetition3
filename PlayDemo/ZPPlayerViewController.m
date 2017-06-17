@@ -185,6 +185,7 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
 -(void)setMute:(BOOL)mute {
     _mute = mute;
     [self.playController setMute:mute];
+//    [[QYPlayerController sharedInstance]setMute:YES];
 }
 
 #pragma mark - Create subView
