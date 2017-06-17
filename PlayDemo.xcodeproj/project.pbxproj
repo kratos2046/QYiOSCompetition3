@@ -60,6 +60,10 @@
 		18C552081ED8104F0012E16B /* ZPTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C552071ED8104F0012E16B /* ZPTools.m */; };
 		18C5520D1ED917430012E16B /* ZPVideoProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C5520C1ED917430012E16B /* ZPVideoProgressBar.m */; };
 		18C75BD21EF5554500EF5B74 /* libav.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18C75BD11EF5554500EF5B74 /* libav.a */; };
+		18C75BDA1EF5573000EF5B74 /* RecommentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C75BD51EF5573000EF5B74 /* RecommentCollectionViewCell.m */; };
+		18C75BDB1EF5573000EF5B74 /* CollectionReusableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C75BD71EF5573000EF5B74 /* CollectionReusableHeadView.m */; };
+		18C75BDC1EF5573000EF5B74 /* CollectionReusableFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C75BD91EF5573000EF5B74 /* CollectionReusableFooterView.m */; };
+		18C75BE01EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C75BDF1EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.m */; };
 		18E52A751EEFA6BF00244A7A /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A701EEFA6BF00244A7A /* TYPagerController.m */; };
 		18E52A761EEFA6BF00244A7A /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A721EEFA6BF00244A7A /* TYTabPagerController.m */; };
 		18E52A771EEFA6BF00244A7A /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E52A741EEFA6BF00244A7A /* TYTabButtonPagerController.m */; };
@@ -249,6 +253,14 @@
 		18C75BCF1EF5554500EF5B74 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		18C75BD01EF5554500EF5B74 /* QYPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QYPlayerController.h; sourceTree = "<group>"; };
 		18C75BD11EF5554500EF5B74 /* libav.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libav.a; sourceTree = "<group>"; };
+		18C75BD41EF5573000EF5B74 /* RecommentCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommentCollectionViewCell.h; sourceTree = "<group>"; };
+		18C75BD51EF5573000EF5B74 /* RecommentCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommentCollectionViewCell.m; sourceTree = "<group>"; };
+		18C75BD61EF5573000EF5B74 /* CollectionReusableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionReusableHeadView.h; sourceTree = "<group>"; };
+		18C75BD71EF5573000EF5B74 /* CollectionReusableHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionReusableHeadView.m; sourceTree = "<group>"; };
+		18C75BD81EF5573000EF5B74 /* CollectionReusableFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionReusableFooterView.h; sourceTree = "<group>"; };
+		18C75BD91EF5573000EF5B74 /* CollectionReusableFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionReusableFooterView.m; sourceTree = "<group>"; };
+		18C75BDE1EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommentCollectionViewCellDataModel.h; sourceTree = "<group>"; };
+		18C75BDF1EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommentCollectionViewCellDataModel.m; sourceTree = "<group>"; };
 		18E52A6F1EEFA6BF00244A7A /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
 		18E52A701EEFA6BF00244A7A /* TYPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPagerController.m; sourceTree = "<group>"; };
 		18E52A711EEFA6BF00244A7A /* TYTabPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabPagerController.h; sourceTree = "<group>"; };
@@ -749,6 +761,28 @@
 			path = "asihttp include";
 			sourceTree = "<group>";
 		};
+		18C75BD31EF5571E00EF5B74 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18C75BD41EF5573000EF5B74 /* RecommentCollectionViewCell.h */,
+				18C75BD51EF5573000EF5B74 /* RecommentCollectionViewCell.m */,
+				18C75BD61EF5573000EF5B74 /* CollectionReusableHeadView.h */,
+				18C75BD71EF5573000EF5B74 /* CollectionReusableHeadView.m */,
+				18C75BD81EF5573000EF5B74 /* CollectionReusableFooterView.h */,
+				18C75BD91EF5573000EF5B74 /* CollectionReusableFooterView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		18C75BDD1EF5573B00EF5B74 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				18C75BDE1EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.h */,
+				18C75BDF1EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		18E52A6E1EEFA69E00244A7A /* TYPagerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -785,6 +819,8 @@
 		18F4E2611EED6DAB00D5659C /* RecommendPage */ = {
 			isa = PBXGroup;
 			children = (
+				18C75BDD1EF5573B00EF5B74 /* Model */,
+				18C75BD31EF5571E00EF5B74 /* View */,
 				18F4E2651EED6EC000D5659C /* Controller */,
 			);
 			name = RecommendPage;
@@ -1048,6 +1084,7 @@
 				189A11691EF2A56B007B615C /* UIButton+AFNetworking.m in Sources */,
 				18A6156A1EEFE3A60081BEDD /* ZPChannelPageController.m in Sources */,
 				184FF35B1EE82186002293B5 /* DCPathItemButton.m in Sources */,
+				18C75BDB1EF5573000EF5B74 /* CollectionReusableHeadView.m in Sources */,
 				18F4E25C1EEC20C000D5659C /* ZPVideoInfoView.m in Sources */,
 				18AE603B1EF3886300F56F59 /* UIScrollView+MJRefresh.m in Sources */,
 				189A116B1EF2A56B007B615C /* UIProgressView+AFNetworking.m in Sources */,
@@ -1065,6 +1102,7 @@
 				18A6157C1EEFE4D30081BEDD /* AFSecurityPolicy.m in Sources */,
 				E5F555C51EC0004F004DFC8D /* AppDelegate.m in Sources */,
 				18F4E25F1EED5D9D00D5659C /* ZPChannelInfo.m in Sources */,
+				18C75BE01EF5574800EF5B74 /* RecommentCollectionViewCellDataModel.m in Sources */,
 				184FF35A1EE82186002293B5 /* DCPathButton.m in Sources */,
 				18AE60361EF3886300F56F59 /* MJRefreshStateHeader.m in Sources */,
 				18E52A771EEFA6BF00244A7A /* TYTabButtonPagerController.m in Sources */,
@@ -1075,6 +1113,8 @@
 				1805A7971EEBA07B00DD58FE /* MBProgressHUD.m in Sources */,
 				18A6157A1EEFE4D30081BEDD /* AFHTTPSessionManager.m in Sources */,
 				18AE60321EF3886300F56F59 /* MJRefreshBackNormalFooter.m in Sources */,
+				18C75BDA1EF5573000EF5B74 /* RecommentCollectionViewCell.m in Sources */,
+				18C75BDC1EF5573000EF5B74 /* CollectionReusableFooterView.m in Sources */,
 				189A11651EF2A56B007B615C /* AFAutoPurgingImageCache.m in Sources */,
 				18A0B3181EEFA97C0058AABF /* ZPHomePageViewController.m in Sources */,
 				18C551FF1ED703120012E16B /* ZPPlayerViewController.m in Sources */,
