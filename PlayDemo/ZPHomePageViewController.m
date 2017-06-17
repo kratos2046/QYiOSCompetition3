@@ -192,6 +192,7 @@
 }
 
 
+
 - (NSString *)pagerController:(TYPagerController *)pagerController titleForIndex:(NSInteger)index
 {
     ZPChannel *channel = self.channelList[index];
