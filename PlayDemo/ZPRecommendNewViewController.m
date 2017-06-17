@@ -36,6 +36,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
 @property (nonatomic, weak) ZYBannerView *cycleScrollView;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
+
 @end
 
 @implementation ZPRecommendNewViewController
@@ -263,7 +264,11 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
 
 #pragma mark - CollectionReusableFooterViewDelegate
 -(void)CollectionReusableFooterViewBtnClick:(UIButton *)btn {
-    
+    ZPChannelInfo *channel = self.channelsInfos[btn.tag + 1];
+    if ([self.delegate respondsToSelector:@selector(moreVideoButtonDidClick:)]) {
+        [self.delegate performSelector:@selector(moreVideoButtonDidClick:) withObject:channel.title];
+    }
+    NSLog(@"%@", btn);
 }
 
 /*

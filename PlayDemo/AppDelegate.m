@@ -29,12 +29,8 @@
     UIWindow *windows = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UIViewController *vc = [[ZPHomePageViewController alloc] init];
 //    UIViewController *vc = [[ZPSearchPageViewController alloc] init];
-    
 //    UIViewController *vc = [[ViewController alloc] init];
-    
-    
 //    ZPChannelPageController *vc = [[ZPChannelPageController alloc] init];
-    
 //    vc.view.backgroundColor = [UIColor redColor];
     self.window = windows;
     self.window.rootViewController = vc;
