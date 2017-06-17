@@ -413,7 +413,7 @@ static const CGFloat ScreenShootViewScale = 0.2f;
     UIButton *shareImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareImageBtn.frame = CGRectMake(btnX, shareImageBtnY, btnW, btnH);
     [shareImageBtn setTitle:@"分享" forState:UIControlStateNormal];
-    [shareImageBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+//    [shareImageBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
     [screenShotView addSubview:shareImageBtn];
 //    shareImageBtn.backgroundColor = [UIColor greenColor];
 }

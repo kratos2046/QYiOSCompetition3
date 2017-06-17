@@ -1,58 +1,63 @@
 //
-//  ChannelPageController.m
+//  ZPSearchPageViewController.m
 //  PlayDemo
 //
-//  Created by HZP on 2017/6/13.
+//  Created by HZP on 2017/6/16.
 //  Copyright © 2017年 liuxiaodan. All rights reserved.
 //
 
-#import "ZPChannelPageController.h"
-#import "ZPChannel.h"
+#import "ZPSearchPageViewController.h"
 #import "ZPVideoInfo.h"
-#import "AFHTTPSessionManager.h"
 #import "ZPPlayerViewController.h"
 #import "ZPChannelPageViewCell.h"
+#import "AFHTTPSessionManager.h"
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
 
 
-static NSString* const kChannelBaseURL = @"http://iface.qiyi.com/openapi/batch/channel";
-static const NSUInteger kChannelPageSize = 30;
 
-@interface ZPChannelPageController ()
+static NSString* const kSearchBaseURL = @"http://iface.qiyi.com/openapi/batch/search";
+static const NSUInteger kSearchPageSize = 30;
+
+@interface ZPSearchPageViewController () <UISearchBarDelegate>
+
 /**
- *  视频列表
+ *  上次搜索的关键字
  */
-@property (nonatomic, strong) NSMutableArray *videoList;
+@property (nonatomic, copy) NSString *searchKey;
 
+/**
+ *  搜索结果模型
+ */
+@property (nonatomic, strong) NSMutableArray *searchResults;
+
+/**
+ *  搜索栏
+ */
+@property (nonatomic, weak) UISearchBar *searchBar;
 @end
 
-@implementation ZPChannelPageController
+@implementation ZPSearchPageViewController
 
-#pragma mark - Controller Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tableView.rowHeight = kCellImageHeight + 2 * kCellMargin;
-//    self.tableView.rowHeight = 150;
-//    [self fetchData];
+    [self setupTableView];
+    [self setupSearchBar];
     [self setupRefreshControl];
+
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 
 /**
  *  设置下拉刷新和上拉加载更多
  */
 -(void)setupRefreshControl {
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self fetchData];
-    }];
-    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
-    [header setTitle:@"正在加载" forState:MJRefreshStateRefreshing];
-    [header setTitle:@"松开加载" forState:MJRefreshStatePulling];
-    [header setTitle:@"加载失败" forState:MJRefreshStateNoMoreData];
-    
-    self.tableView.mj_header = header;
-    
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self fetchMoreData];
     }];
@@ -63,80 +68,101 @@ static const NSUInteger kChannelPageSize = 30;
     self.tableView.mj_footer = footer;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+/**
+ *  设置tableview
+ */
+-(void)setupTableView {
+    UIEdgeInsets insect = UIEdgeInsetsMake(20, 0, 0, 0);
+    self.tableView.contentInset = insect;
+//    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+//    {
+//        CGRect rect = self.tableView.frame;
+//        rect.origin.y += 20;
+//        self.tableView.frame = rect;
+//    }
+    self.tableView.rowHeight = kCellMargin + kCellImageHeight + kCellMargin;
 }
 
-#pragma mark - Setter
--(void)setChannel:(ZPChannel *)channel {
-    _channel = channel;
-    [self fetchData];
+/**
+ *  设置搜索栏
+ */
+- (void)setupSearchBar {
+    
+    UISearchBar *searchBar = [[UISearchBar alloc]init];
+    
+    CGFloat searchBarX = 0;
+    CGFloat searchBarY = 50;
+    CGFloat searchBarW = self.view.bounds.size.width;
+    CGFloat searchBarH = 50;
+    searchBar.frame = CGRectMake(searchBarX, searchBarY, searchBarW, searchBarH);
+    searchBar.delegate = self;
+    self.tableView.tableHeaderView = searchBar;
+    self.searchBar = searchBar;
 }
+
 
 #pragma mark - NetWork Method
 /**
  *  获取网络数据
  */
--(void)fetchData {
+-(void)fetchDataWithKey:(NSString*)key {
+    if (key == nil) return;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //1.确定搜索结果条数
     int pageSize = 0;
-    if (self.videoList.count == 0) {
-        pageSize = kChannelPageSize;
+    if (self.searchResults.count == 0) {
+        pageSize = kSearchPageSize;
     } else {
-        pageSize = self.videoList.count;
+        pageSize = self.searchResults.count;
     }
+    self.searchKey = key;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSDictionary *para = @{ @"type" : @"detail",
-                    @"channel_name" : self.channel.name,
-                            @"mode" : @"11",
-//                     @"is_purchase" : @"2",
-                       @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
-                         @"version" : @"7.5",
-                           @"app_k" : @"f0f6c3ee5709615310c0f053dc9c65f2",
-                           @"app_v" : @"8.4",
-                           @"app_t" : @"0",
-                     @"platform_id" : @"12",
-                          @"dev_os" : @"10.3.1",
-                          @"dev_ua" : @"iPhone9,3",
-                            
-                    @"dev_hw" : @"%7B%22cpu%22%3A0%2C%22gpu%22%3A%22%22%2C%22mem%22%3A%2250.4MB%22%7D",
-                            
-                         @"net_sts" : @"1",
-                        @"scrn_sts" : @"1",
-                        @"scrn_res" : @"1334*750",
-                        @"scrn_dpi" : @"153600",
-                            @"qyid" : @"87390BD2-DACE- 497B-9CD4- 2FD14354B2A4",
-                        @"secure_v" : @"1",
-                        @"secure_p" : @"iPhone",
-                            @"core" : @"1",
-                          @"req_sn" : @"1493946331320",
-                       @"req_times" : @"1"};
+    NSDictionary *para = @{ @"key" : key,
+                           @"from" : @"mobile_list",
+                      @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
+                        @"version" : @"7.5",
+                          @"app_k" : @"f0f6c3ee5709615310c0f053dc9c65f2",
+                          @"app_v" : @"8.4",
+                          @"app_t" : @"0",
+                    @"platform_id" : @"12",
+                         @"dev_os" : @"10.3.1",
+                         @"dev_ua" : @"iPhone9,3",
+                         @"dev_hw" : @"%7B%22cpu%22%3A0%2C%22gpu%22%3A%22%22%2C%22mem%22%3A%2250.4MB%22%7D",
+                        @"net_sts" : @"1",
+                       @"scrn_sts" : @"1",
+                       @"scrn_res" : @"1334*750",
+                       @"scrn_dpi" : @"153600",
+                           @"qyid" : @"87390BD2-DACE- 497B-9CD4- 2FD14354B2A4",
+                       @"secure_v" : @"1",
+                       @"secure_p" : @"iPhone",
+                           @"core" : @"1",
+                         @"req_sn" : @"1493946331320",
+                      @"req_times" : @"1"};
     
-    [manager GET:kChannelBaseURL parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"channel page request success");
-
+    [manager GET:kSearchBaseURL parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"search request success");
+        
         NSDictionary *dataDict = responseObject;
         NSNumber *code = dataDict[@"code"];
         if ([code integerValue] != 100000) {
             //获取数据失败
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self fetchDataFailed];
+                [self searchDataFailed];
             });
             return;
         }
         
         //获取数据成功
-        NSArray *dictArr = dataDict[@"data"][@"video_list"];
+        NSArray *dictArr = dataDict[@"data"];
         NSMutableArray *modelArr = [NSMutableArray array];
         for (NSDictionary *dict in dictArr) {
             [modelArr addObject:[ZPVideoInfo videoInfoWithDict:dict]];
         }
-        self.videoList = modelArr;
+        self.searchResults = modelArr;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
         });
-
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //网络请求失败
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -149,20 +175,19 @@ static const NSUInteger kChannelPageSize = 30;
  *  获取更多网络数据
  */
 -(void)fetchMoreData {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //1.确定搜索结果条数
     int pageSize = 0;
-    
-    if (self.videoList.count == 0) {
-        pageSize = kChannelPageSize;
+    if (self.searchResults.count == 0) {
+        pageSize = kSearchPageSize;
     } else {
-        pageSize = self.videoList.count;
+        pageSize = self.searchResults.count;
     }
-    int pageIndex = self.videoList.count / kChannelPageSize + 1;
+    
+    int pageIndex = self.searchResults.count / kSearchPageSize + 1;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSDictionary *para = @{ @"type" : @"detail",
-                            @"channel_name" : self.channel.name,
-                            @"mode" : @"11",
-//                            @"is_purchase" : @"2",
+    
+    NSDictionary *para = @{ @"key" : self.searchKey,
+                            @"from" : @"mobile_list",
                             @"page_size" : [NSString stringWithFormat:@"%d", pageSize],
                             @"page_num" : [NSString stringWithFormat:@"%d", pageIndex],
                             @"version" : @"7.5",
@@ -172,9 +197,7 @@ static const NSUInteger kChannelPageSize = 30;
                             @"platform_id" : @"12",
                             @"dev_os" : @"10.3.1",
                             @"dev_ua" : @"iPhone9,3",
-                            
                             @"dev_hw" : @"%7B%22cpu%22%3A0%2C%22gpu%22%3A%22%22%2C%22mem%22%3A%2250.4MB%22%7D",
-                            
                             @"net_sts" : @"1",
                             @"scrn_sts" : @"1",
                             @"scrn_res" : @"1334*750",
@@ -186,28 +209,28 @@ static const NSUInteger kChannelPageSize = 30;
                             @"req_sn" : @"1493946331320",
                             @"req_times" : @"1"};
     
-    [manager GET:kChannelBaseURL parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"channel page request success");
+    [manager GET:kSearchBaseURL parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"search request success");
         
         NSDictionary *dataDict = responseObject;
         NSNumber *code = dataDict[@"code"];
         if ([code integerValue] != 100000) {
             //获取数据失败
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self fetchDataFailed];
+                [self searchDataFailed];
             });
             return;
         }
         
         //获取数据成功
-        NSArray *dictArr = dataDict[@"data"][@"video_list"];
+        NSArray *dictArr = dataDict[@"data"];
         for (NSDictionary *dict in dictArr) {
-            [self.videoList addObject:[ZPVideoInfo videoInfoWithDict:dict]];
+            [self.searchResults addObject:[ZPVideoInfo videoInfoWithDict:dict]];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
         });
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //网络请求失败
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -216,45 +239,59 @@ static const NSUInteger kChannelPageSize = 30;
     }];
 }
 
--(void)showHudWithMessage:(NSString*)msg duration:(NSTimeInterval)duration{
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.label.text = msg;
-    [hud hideAnimated:YES afterDelay:duration];
-}
 
 /**
  *  网络请求失败
  */
 -(void)requestFailed {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSString *msg = @"网络请求失败, 请刷新";
+    NSString *msg = @"网络请求失败";
     NSLog(@"%@", msg);
-    [self showHudWithMessage:msg duration:2.0f];
+//    [self showHudWithMessage:msg duration:2.0f];
     [self cancelRefreshing];
 }
 
+
+
 /**
- *  获取数据失败
+ *  获取搜索数据失败
  */
--(void)fetchDataFailed {
+-(void)searchDataFailed {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    NSString *msg = @"获取数据失败, 请刷新";
+    NSString *msg = @"获取搜索数据失败";
     NSLog(@"%@", msg);
-    [self showHudWithMessage:msg duration:2.0f];
+//    [self showHudWithMessage:msg duration:2.0f];
     [self cancelRefreshing];
 }
 
-/**
- *  重新显示数据
- */
+
 -(void)reloadData {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self.tableView reloadData];
     [self cancelRefreshing];
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
-//-(void)
+//-(void)test {
+//    if (self.table.style == UITableViewStylePlain) {
+//        UIEdgeInsets contentInset = _table.contentInset;
+//        contentInset.top = 25;
+//        [_table setContentInset:contentInset];
+//    } //创建search
+//    _searchcontroller = [[UISearchController alloc] initWithSearchResultsController:nil]; _searchcontroller.searchResultsUpdater = self;
+//    _searchcontroller.dimsBackgroundDuringPresentation = NO;
+//    _searchcontroller.hidesNavigationBarDuringPresentation = NO;
+//    _searchcontroller.searchBar.frame = CGRectMake(self.searchcontroller.searchBar.frame.origin.x, self.searchcontroller.searchBar.frame.origin.y, self.searchcontroller.searchBar.frame.size.width, 44.0);
+//    self.searchcontroller.searchBar.delegate = self;
+//    self.searchcontroller.searchBar.keyboardType = UIKeyboardTypeDefault;
+//    CGRect r= self.table.tableHeaderView.bounds; r.origin.y=-10;
+//    self.table.tableHeaderView.bounds=r;
+//    self.table.tableHeaderView = self.searchcontroller.searchBar; }
+//}
 
 /**
  *  停止上拉下拉转着的菊花
@@ -264,31 +301,19 @@ static const NSUInteger kChannelPageSize = 30;
     [self.tableView.mj_footer endRefreshing];
 }
 
-#pragma mark - Table view data source
-
+#pragma mark - Table view Data Source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.videoList.count;
+    return self.searchResults.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    static NSString* cellID = @"ChannelPageCellIdentifier";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//    }
-//    ZPVideoInfo *videoInfo = self.videoList[indexPath.row];
-//    [cell.textLabel setText:videoInfo.title];
-    
-    ZPVideoInfo *info = self.videoList[indexPath.row];
-    
+    ZPVideoInfo *info = self.searchResults[indexPath.row];
     ZPChannelPageViewCell *cell = [ZPChannelPageViewCell cellWithTableView:tableView];
     cell.videoInfo = info;
-    
     return cell;
 }
 
@@ -327,12 +352,32 @@ static const NSUInteger kChannelPageSize = 30;
     return YES;
 }
 */
+
+
+
 #pragma mark - Table view delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZPVideoInfo *videoInfo = self.videoList[indexPath.row];
+    ZPVideoInfo *videoInfo = self.searchResults[indexPath.row];
     ZPPlayerViewController *playerVC = [[ZPPlayerViewController alloc]init];
     playerVC.videoInfo = videoInfo;
     [self presentViewController:playerVC animated:YES completion:nil];
+}
+
+#pragma mark - UISearchBarDelegate
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
+//    [self.searchBar becomeFirstResponder];
+    return YES;
+}
+/**
+ *  点击搜索按钮开始搜索
+ */
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [self.searchResults removeAllObjects];
+    NSString *key = searchBar.text;
+    [self fetchDataWithKey:key];
+//    [self reloadData];
+    
+    [self.searchBar resignFirstResponder];
 }
 
 /*

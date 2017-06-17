@@ -10,6 +10,7 @@
 		1805A7971EEBA07B00DD58FE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1805A7961EEBA07B00DD58FE /* MBProgressHUD.m */; };
 		184FF35A1EE82186002293B5 /* DCPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FF3571EE82186002293B5 /* DCPathButton.m */; };
 		184FF35B1EE82186002293B5 /* DCPathItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FF3591EE82186002293B5 /* DCPathItemButton.m */; };
+		188135BA1EF4315E00F77E62 /* ZPSearchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */; };
 		189629261EF03CD5005C3889 /* ZPChannelPageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */; };
 		1897CE9F1EF368C70087A183 /* libav.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1897CE9E1EF368C70087A183 /* libav.a */; };
 		189A11651EF2A56B007B615C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11521EF2A56B007B615C /* AFAutoPurgingImageCache.m */; };
@@ -134,6 +135,8 @@
 		184FF3571EE82186002293B5 /* DCPathButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPathButton.m; sourceTree = "<group>"; };
 		184FF3581EE82186002293B5 /* DCPathItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPathItemButton.h; sourceTree = "<group>"; };
 		184FF3591EE82186002293B5 /* DCPathItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPathItemButton.m; sourceTree = "<group>"; };
+		188135B81EF4315E00F77E62 /* ZPSearchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPSearchPageViewController.h; sourceTree = "<group>"; };
+		188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPSearchPageViewController.m; sourceTree = "<group>"; };
 		189629241EF03CD5005C3889 /* ZPChannelPageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPChannelPageViewCell.h; sourceTree = "<group>"; };
 		189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPChannelPageViewCell.m; sourceTree = "<group>"; };
 		1897CE9E1EF368C70087A183 /* libav.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libav.a; path = ../../IOSPlayerLib/libav.a; sourceTree = "<group>"; };
@@ -432,6 +435,23 @@
 			name = DCPathButton;
 			sourceTree = "<group>";
 		};
+		188135B61EF4312C00F77E62 /* SearchPage */ = {
+			isa = PBXGroup;
+			children = (
+				188135B71EF4313C00F77E62 /* Controller */,
+			);
+			name = SearchPage;
+			sourceTree = "<group>";
+		};
+		188135B71EF4313C00F77E62 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				188135B81EF4315E00F77E62 /* ZPSearchPageViewController.h */,
+				188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		189629271EF03CDC005C3889 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,13 +552,13 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		18A615671EEFE37E0081BEDD /* Channel */ = {
+		18A615671EEFE37E0081BEDD /* ChannelPage */ = {
 			isa = PBXGroup;
 			children = (
 				189629271EF03CDC005C3889 /* View */,
 				18A6156B1EEFE3AA0081BEDD /* Controller */,
 			);
-			name = Channel;
+			name = ChannelPage;
 			sourceTree = "<group>";
 		};
 		18A6156B1EEFE3AA0081BEDD /* Controller */ = {
@@ -819,8 +839,9 @@
 				18C552091ED810560012E16B /* Others */,
 				18A0B3141EEFA9570058AABF /* HomePage */,
 				18F4E2611EED6DAB00D5659C /* RecommendPage */,
+				188135B61EF4312C00F77E62 /* SearchPage */,
 				18C552001ED732500012E16B /* PlayerPage */,
-				18A615671EEFE37E0081BEDD /* Channel */,
+				18A615671EEFE37E0081BEDD /* ChannelPage */,
 				E5F555C31EC0004F004DFC8D /* AppDelegate.h */,
 				E5F555C41EC0004F004DFC8D /* AppDelegate.m */,
 				E5F555C61EC0004F004DFC8D /* ViewController.h */,
@@ -1064,6 +1085,7 @@
 				18AEF3441EF3CC020060C2D9 /* ZYBannerCell.m in Sources */,
 				18A6157F1EEFE4D30081BEDD /* AFURLSessionManager.m in Sources */,
 				189A11671EF2A56B007B615C /* AFNetworkActivityIndicatorManager.m in Sources */,
+				188135BA1EF4315E00F77E62 /* ZPSearchPageViewController.m in Sources */,
 				E56B6CA41EC169AA00648AF4 /* PlayViewController.m in Sources */,
 				E5C456F21EC07620003499D4 /* ActivityIndicatorView.m in Sources */,
 				18AE60301EF3886300F56F59 /* MJRefreshAutoStateFooter.m in Sources */,

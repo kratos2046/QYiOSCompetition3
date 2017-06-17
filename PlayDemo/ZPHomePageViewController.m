@@ -57,10 +57,14 @@
     pagerController.adjustStatusBarHeight = YES;
     //TYTabButtonPagerController set barstyle will reset (TYTabPagerController not reset)cell propertys
     pagerController.barStyle = TYPagerBarStyleProgressView;
+    
+    
 //    pagerController.barStyle = _variable ? (_showNavBar? TYPagerBarStyleProgressBounceView : TYPagerBarStyleProgressElasticView) : TYPagerBarStyleProgressView;
     // after set barstyle,you need set cell propertys that you want
     pagerController.cellWidth = 78;
     pagerController.cellSpacing = 8;
+    
+//    pagerController
     
     pagerController.view.frame = self.view.bounds;
     [self addChildViewController:pagerController];
@@ -174,7 +178,6 @@
     copyLabel.font = [UIFont systemFontOfSize:14];
     copyLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:copyLabel];
-
 }
 
 -(void)showMessageData:(NSArray*)data {

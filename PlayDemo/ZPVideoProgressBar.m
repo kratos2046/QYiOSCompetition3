@@ -83,7 +83,7 @@ static const CGFloat Inaccuracy = 0.0001f;
     NSString *timeStr = [NSString stringWithFormat:@"%@ / %@", currentPlayBackTimeStr, totalTimeStr];
     self.timeLabel.text = timeStr;
     CGRect timelabelFrame = self.timeLabel.frame;
-    NSLog(@"%@", timelabelFrame);
+//    NSLog(@"%@", timelabelFrame);
     
     //调整进度条按钮的值
     self.sliderButton.center = CGPointMake(viewW, self.sliderButton.center.y);

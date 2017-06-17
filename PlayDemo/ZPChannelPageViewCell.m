@@ -81,37 +81,24 @@ static const CGFloat kVipViewSize = 12;
     self.isVipView = isVipView;
 }
 
-//-(void)layoutSubviews {
-//    [super layoutSubviews];
-//    
-//    CGSize contentViewSize = self.contentView.bounds.size;
-//    CGSize imageSize = self.coverView.image.size;
-//    CGFloat coverH = kCellImageHeight;
-//    CGFloat coverW = (imageSize.width == 0) ? 0 : coverH * imageSize.width / imageSize.height;
-//    CGFloat coverX = (contentViewSize.width - coverW) / 2;
-//    CGFloat coverY = 0;
-//    self.coverView.frame = CGRectMake(coverX, coverY, coverW, coverH);
-//    
-//    CGFloat titleLabelH = kCellTitleLabelHeight;
-//    CGFloat titleLabelW = contentViewSize.width;
-//    CGFloat titleLabelX = 0;
-//    CGFloat titleLabelY = coverH;
-//    self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
-//  
-//}
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    [self setCellFrame];
+}
 
 #pragma mark - Setter
 
 -(void)setVideoInfo:(ZPVideoInfo *)videoInfo {
     _videoInfo = videoInfo;
     [self setCellData:videoInfo];
-    [self setCellFrame:videoInfo];
+    [self setCellFrame];
 }
 
 /**
  *  设置cell显示数据
  */
 -(void)setCellData:(ZPVideoInfo*)info {
+    
     self.titleLabel.text = info.title;
     [self.coverView setImageWithURL:[NSURL URLWithString:info.img]];
     if ([info.isVip isEqualToString:@"1"]) {
@@ -124,7 +111,7 @@ static const CGFloat kVipViewSize = 12;
 /**
  *  设置cell布局
  */
--(void)setCellFrame:(ZPVideoInfo*)info {
+-(void)setCellFrame {
     CGSize contentViewSize = self.contentView.bounds.size;
     CGSize imageSize = self.coverView.image.size;
     
