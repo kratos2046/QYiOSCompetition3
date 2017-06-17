@@ -202,14 +202,12 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
 -(void)banner:(ZYBannerView *)banner didSelectItemAtIndex:(NSInteger)index {
     ZPChannelInfo *cycleChannel = [self.channelsInfos firstObject];
     ZPVideoInfo *video = cycleChannel.video_list[index];
-    
-    
     ZPPlayerViewController *playVC = [[ZPPlayerViewController alloc]init];
     playVC.videoInfo = video;
     [self presentViewController:playVC animated:YES completion:nil];
 }
 
-#pragma mark UICollectionViewDataSource
+#pragma mark - UICollectionView DataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 6;
@@ -230,7 +228,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     
 }
 
-#pragma mark UICollectionViewDelegate
+#pragma mark - UICollectionView Delegate
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return CGSizeMake(ImforMationCellwidth, ImforMationCellwidth*7/10+20);
@@ -255,7 +253,15 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     return nil;
 }
 
-#pragma mark CollectionReusableFooterViewDelegate
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ZPChannelInfo *cycleChannel = self.channelsInfos[indexPath.section + 1];
+    ZPVideoInfo *video = cycleChannel.video_list[indexPath.row];
+    ZPPlayerViewController *playVC = [[ZPPlayerViewController alloc]init];
+    playVC.videoInfo = video;
+    [self presentViewController:playVC animated:YES completion:nil];
+}
+
+#pragma mark - CollectionReusableFooterViewDelegate
 -(void)CollectionReusableFooterViewBtnClick:(UIButton *)btn {
     
 }
