@@ -16,6 +16,7 @@
 #import "RecommentCollectionViewCellDataModel.h"
 #import "RecommentCollectionViewCell.h"
 #import "CollectionReusableHeadView.h"
+#import "CollectionReusableBannerHeaderView.h"
 #import "CollectionReusableFooterView.h"
 #import "MBProgressHUD.h"
 
@@ -75,7 +76,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  */
 -(void)setupSubView {
     [self setupSearchBar];
-    [self setupCycleView];
+    //[self setupCycleView];
 }
 
 /**
@@ -98,24 +99,24 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  *  创建轮播图
  */
 -(void)setupCycleView {
-    ZYBannerView *banner = [[ZYBannerView alloc]init];
-    banner.dataSource = self;
-    banner.delegate = self;
-    //是否需要循环滚动
-    banner.shouldLoop = YES;
-    //是否需要自动滚动
-    banner.autoScroll = YES;
-    banner.scrollInterval = 5.0f;
-    
-    // 设置frame
-    CGFloat bannerX = 0;
-    CGFloat bannerY = CGRectGetMaxY(self.searchBar.frame);
-    CGFloat bannerW = self.view.bounds.size.width;
-    CGFloat bannerH = kCycleViewHeight;
-    banner.frame = CGRectMake(bannerX, bannerY, bannerW, bannerH);
-    
-    [self.view addSubview:banner];
-    self.cycleScrollView = banner;
+//    ZYBannerView *banner = [[ZYBannerView alloc]init];
+//    banner.dataSource = self;
+//    banner.delegate = self;
+//    //是否需要循环滚动
+//    banner.shouldLoop = YES;
+//    //是否需要自动滚动
+//    banner.autoScroll = YES;
+//    banner.scrollInterval = 5.0f;
+//    
+//    // 设置frame
+//    CGFloat bannerX = 0;
+//    CGFloat bannerY = CGRectGetMaxY(self.searchBar.frame);
+//    CGFloat bannerW = self.view.bounds.size.width;
+//    CGFloat bannerH = kCycleViewHeight;
+//    banner.frame = CGRectMake(bannerX, bannerY, bannerW, bannerH);
+//    
+//    [self.view addSubview:banner];
+//    self.cycleScrollView = banner;
 }
 
 /**
@@ -128,7 +129,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     flowLayout.footerReferenceSize = CGSizeMake(self.view.frame.size.width, 40);
     
     CGFloat colleViewX = kViewMargin;
-    CGFloat colleViewY = CGRectGetMaxY(self.cycleScrollView.frame) + kViewMargin;
+    CGFloat colleViewY = CGRectGetMaxY(self.searchBar.frame)+kViewMargin;
     CGFloat colleViewW = self.view.frame.size.width - 2 * kViewMargin;
     CGFloat colleViewH = self.view.frame.size.height - colleViewY;
     
@@ -137,9 +138,12 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[RecommentCollectionViewCell class] forCellWithReuseIdentifier:@"RecommentCollectionViewCell"];
     [_collectionView registerClass:[CollectionReusableHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView"];
+    [_collectionView registerClass:[CollectionReusableBannerHeaderView class] forSupplementaryViewOfKind: UICollectionElementKindSectionHeader withReuseIdentifier:@"BannerHeaderView"];
     [_collectionView registerClass:[CollectionReusableFooterView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"FootView"];
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
+    _collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.showsHorizontalScrollIndicator = YES;
     _collectionView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -273,12 +277,40 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     return CGSizeMake(TVCellwidth,TVCellwidth*4/3+20);
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0:
+            return CGSizeMake(self.view.frame.size.width, 185);
+            break;
+            
+        default:
+            return CGSizeMake(self.view.frame.size.width, 20);
+            break;
+    }
+}
+
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        CollectionReusableHeadView *header= [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HeadView" forIndexPath:indexPath];
+        UICollectionReusableView *header;
+        
         ZPChannelInfo *info = _channelsInfos[indexPath.section + 1];
-        header.lable.text = info.title;
+        switch (indexPath.section) {
+            case 0:
+                
+                header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"BannerHeaderView" forIndexPath:indexPath];
+                _cycleScrollView = ((CollectionReusableBannerHeaderView*)header).bannerView;
+                ((CollectionReusableBannerHeaderView*)header).bannerView.delegate = self;
+                ((CollectionReusableBannerHeaderView*)header).bannerView.dataSource = self;
+                ((CollectionReusableBannerHeaderView*)header).lable.text = info.title;
+                break;
+                
+            default:
+                header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HeadView" forIndexPath:indexPath];
+                ((CollectionReusableHeadView*)header).lable.text = info.title;
+                break;
+        }
         return header;
+        
     }
     if([kind isEqualToString:UICollectionElementKindSectionFooter]){
         CollectionReusableFooterView *foot= [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"FootView" forIndexPath:indexPath];

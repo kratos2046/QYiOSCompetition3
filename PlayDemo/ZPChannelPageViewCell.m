@@ -9,6 +9,7 @@
 #import "ZPChannelPageViewCell.h"
 #import "ZPVideoInfo.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h"
 
 
 
@@ -28,6 +29,7 @@ static const CGFloat kVipViewSize = 12;
  *  视频标题
  */
 @property (nonatomic, weak) UILabel *titleLabel;
+@property (nonatomic, weak) UILabel *detailLabel;
 @property (nonatomic, weak) UIImageView *isVipView;
 @end
 
@@ -65,19 +67,28 @@ static const CGFloat kVipViewSize = 12;
 -(void)createSubView {
 //    self.contentView.backgroundColor = [UIColor yellowColor];
     UIImageView *coverView = [[UIImageView alloc]init];
+    
 //    coverView.backgroundColor = [UIColor redColor];
     [self.contentView addSubview:coverView];
     self.coverView = coverView;
     
     UILabel *titleLabel = [[UILabel alloc]init];
-    [titleLabel setTextAlignment:NSTextAlignmentCenter];
-//    titleLabel.backgroundColor = [UIColor greenColor];
+    [titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [titleLabel setTextColor:[UIColor darkGrayColor]];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
     
+    UILabel *detailLabel = [[UILabel alloc]init];
+    [detailLabel setTextAlignment:NSTextAlignmentLeft];
+    [detailLabel setTextColor:UIColor.lightGrayColor];
+    [detailLabel setFont:[UIFont systemFontOfSize:UIFontWeightLight]];
+    [detailLabel setNumberOfLines:0];
+    [self.contentView addSubview:detailLabel];
+    self.detailLabel = detailLabel;
+    
     UIImageView *isVipView = [[UIImageView alloc]init];
     isVipView.image = [UIImage imageNamed:@"vip"];
-    [self.coverView addSubview:isVipView];
+    [self.contentView addSubview:isVipView];
     self.isVipView = isVipView;
 }
 
@@ -99,8 +110,14 @@ static const CGFloat kVipViewSize = 12;
  */
 -(void)setCellData:(ZPVideoInfo*)info {
     
-    self.titleLabel.text = info.title;
-    [self.coverView setImageWithURL:[NSURL URLWithString:info.img]];
+    self.titleLabel.text = info.shortTitle;
+    self.detailLabel.text = [[NSString alloc] initWithFormat:@"评分: %.1f\t\t播放量: %@\n\n发布时间: %@",info.snsScore,info.playCountText,info.dateFormat];
+    [self.coverView sd_setImageWithURL:[NSURL URLWithString:info.img] placeholderImage:[UIImage imageNamed:@"placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if(error != nil){
+            [self.coverView setImage:[UIImage imageNamed:@"failLoading"]];
+        }
+    }];
+    //[self.coverView setImageWithURL:];
     if ([info.isVip isEqualToString:@"1"]) {
         self.isVipView.hidden = NO;
     } else {
@@ -112,15 +129,16 @@ static const CGFloat kVipViewSize = 12;
  *  设置cell布局
  */
 -(void)setCellFrame {
+    [self.contentView setBounds:self.bounds];
     CGSize contentViewSize = self.contentView.bounds.size;
-    CGSize imageSize = self.coverView.image.size;
     
     
     CGFloat coverX = kCellMargin;
     CGFloat coverY = kCellMargin;
     CGFloat coverH = kCellImageHeight;
-    CGFloat coverW = (self.coverView.image) ?  coverH * imageSize.width / imageSize.height : 0;
+    CGFloat coverW = 75;
     self.coverView.frame = CGRectMake(coverX, coverY, coverW, coverH);
+    NSLog(@"%f",coverW);
     
     CGFloat vipW = kVipViewSize;
     CGFloat vipH = kVipViewSize;
@@ -132,9 +150,15 @@ static const CGFloat kVipViewSize = 12;
     CGFloat titleLabelH = kCellTitleLabelHeight;
     CGFloat titleLabelW = contentViewSize.width - coverW - vipW - 3 * kCellMargin;
     CGFloat titleLabelX = CGRectGetMaxX(self.isVipView.frame) + kCellMargin;
-    CGFloat titleLabelY = (contentViewSize.height - titleLabelH) / 2;
+    CGFloat titleLabelY = 0+kCellMargin;
     
     self.titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH);
+    
+    CGFloat detailLabelH = CGRectGetMaxY(self.coverView.frame)-CGRectGetMaxY(self.titleLabel.frame)-kCellMargin;
+    CGFloat detailLabelW = CGRectGetWidth(self.titleLabel.frame);
+    CGFloat detailLabelX = CGRectGetMinX(self.titleLabel.frame);
+    CGFloat detailLabelY = CGRectGetMaxY(self.titleLabel.frame)+kCellMargin;
+    self.detailLabel.frame = CGRectMake(detailLabelX, detailLabelY, detailLabelW, detailLabelH);
 }
 
 @end
