@@ -11,16 +11,21 @@
 #import "ZPVideoInfo.h"
 #import "ZPPlayerViewController.h"
 #import "ZYBannerView.h"
+#import "ZPSearchPageViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import "RecommentCollectionViewCellDataModel.h"
 #import "RecommentCollectionViewCell.h"
 #import "CollectionReusableHeadView.h"
 #import "CollectionReusableFooterView.h"
+#import "MBProgressHUD.h"
 
+
+static const CGFloat kSearchBarHeight = 40.0f;
 static const CGFloat kCycleViewHeight = 180.0f;
+static const CGFloat kViewMargin = 10.0f;
 static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/recommend?app_k=f0f6c3ee5709615310c0f053dc9c65f2&app_v=8.4&app_t=0&platform_id=12&dev_os=10.3.1&dev_ua=iPhone9,3&dev_hw=%7B%22cpu%22%3A0%2C%22gpu%22%3A%22%22%2C%22mem%22%3A%2250.4MB%22%7D&net_sts=1&scrn_sts=1&scrn_res=1334*750&scrn_dpi=153600&qyid=87390BD2-DACE-497B-9CD4-2FD14354B2A4&secure_v=1&secure_p=iPhone&core=1&req_sn=1493946331320&req_times=1";
 
-@interface ZPRecommendNewViewController () <ZYBannerViewDataSource, ZYBannerViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CollectionReusableFooterViewDelegate> {
+@interface ZPRecommendNewViewController () <ZYBannerViewDataSource, ZYBannerViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,CollectionReusableFooterViewDelegate, UISearchBarDelegate> {
     CGFloat ImforMationCellwidth;
     CGFloat TVCellwidth;
     
@@ -30,6 +35,10 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  *  频道列表
  */
 @property (nonatomic, strong) NSArray *channelsInfos;
+/**
+ *  上方的搜索框
+ */
+@property (nonatomic, weak) UISearchBar *searchBar;
 /**
  *  上方的轮播图
  */
@@ -65,7 +74,24 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  *  创建子控件
  */
 -(void)setupSubView {
+    [self setupSearchBar];
     [self setupCycleView];
+}
+
+/**
+ *  创建搜索框
+ */
+-(void)setupSearchBar {
+    UISearchBar *searchBar = [[UISearchBar alloc]init];
+    CGFloat searchBarH = kSearchBarHeight;
+    CGFloat searchBarW = self.view.bounds.size.width;
+    CGFloat searchBarX = 0;
+    CGFloat searchBarY = 0;
+    searchBar.frame = CGRectMake(searchBarX, searchBarY, searchBarW, searchBarH);
+    searchBar.placeholder = @"搜索";
+    searchBar.delegate = self;
+    [self.view addSubview:searchBar];
+    self.searchBar = searchBar;
 }
 
 /**
@@ -83,7 +109,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     
     // 设置frame
     CGFloat bannerX = 0;
-    CGFloat bannerY = 0;
+    CGFloat bannerY = CGRectGetMaxY(self.searchBar.frame);
     CGFloat bannerW = self.view.bounds.size.width;
     CGFloat bannerH = kCycleViewHeight;
     banner.frame = CGRectMake(bannerX, bannerY, bannerW, bannerH);
@@ -100,7 +126,14 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     //  flowLayout.itemSize = CGSizeMake(120, 160);
     flowLayout.headerReferenceSize = CGSizeMake(self.view.frame.size.width, 20);
     flowLayout.footerReferenceSize = CGSizeMake(self.view.frame.size.width, 40);
-    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(10, kCycleViewHeight+10, self.view.frame.size.width-20, self.view.frame.size.height-kCycleViewHeight) collectionViewLayout:flowLayout];
+    
+    CGFloat colleViewX = kViewMargin;
+    CGFloat colleViewY = CGRectGetMaxY(self.cycleScrollView.frame) + kViewMargin;
+    CGFloat colleViewW = self.view.frame.size.width - 2 * kViewMargin;
+    CGFloat colleViewH = self.view.frame.size.height - colleViewY;
+    
+    
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(colleViewX, colleViewY, colleViewW, colleViewH) collectionViewLayout:flowLayout];
     [self.view addSubview:_collectionView];
     [_collectionView registerClass:[RecommentCollectionViewCell class] forCellWithReuseIdentifier:@"RecommentCollectionViewCell"];
     [_collectionView registerClass:[CollectionReusableHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HeadView"];
@@ -116,6 +149,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  */
 -(void)requestUrl
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     //1.创建请求
     NSURL *url = [NSURL URLWithString:kRecommendURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -163,6 +197,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  *  网络请求失败
  */
 - (void)requestFailed {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"网络请求失败");
 }
 
@@ -170,6 +205,7 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
  *  刷新数据
  */
 - (void)reloadData {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     [self.cycleScrollView reloadData];
 }
 
@@ -271,6 +307,12 @@ static NSString* const kRecommendURL = @"http://iface.qiyi.com/openapi/batch/rec
     NSLog(@"%@", btn);
 }
 
+#pragma mark - UISearchBarDelegate
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    ZPSearchPageViewController *vc = [[ZPSearchPageViewController alloc]init];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 /*
  #pragma mark - Navigation
  

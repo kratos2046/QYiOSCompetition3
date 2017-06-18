@@ -19,6 +19,9 @@
 static NSString* const kSearchBaseURL = @"http://iface.qiyi.com/openapi/batch/search";
 static const NSUInteger kSearchPageSize = 30;
 
+static const CGFloat kHeaderViewHeight = 50;
+static const CGFloat kCloseButtonWidth = 50;
+
 @interface ZPSearchPageViewController () <UISearchBarDelegate>
 
 /**
@@ -32,19 +35,24 @@ static const NSUInteger kSearchPageSize = 30;
 @property (nonatomic, strong) NSMutableArray *searchResults;
 
 /**
+ *  headerView，放上方的搜索框和关闭按钮
+ */
+@property (nonatomic, weak) UIView *headerView;
+/**
  *  搜索栏
  */
 @property (nonatomic, weak) UISearchBar *searchBar;
+/**
+ *  关闭按钮
+ */
+@property (nonatomic, weak) UIButton *closeBtn;
 @end
 
 @implementation ZPSearchPageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupTableView];
-    [self setupSearchBar];
-    [self setupRefreshControl];
-
+    [self setupSubView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,10 +60,18 @@ static const NSUInteger kSearchPageSize = 30;
     // Dispose of any resources that can be recreated.
 }
 
-
+#pragma mark - Setup Subview
+/**
+ *  设置子控件
+ */
+- (void)setupSubView {
+    [self setupTableView];
+    [self setupHeaderView];
+    [self setupRefreshControl];
+}
 
 /**
- *  设置下拉刷新和上拉加载更多
+ *  设置上拉加载更多控件
  */
 -(void)setupRefreshControl {
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -74,32 +90,62 @@ static const NSUInteger kSearchPageSize = 30;
 -(void)setupTableView {
     UIEdgeInsets insect = UIEdgeInsetsMake(20, 0, 0, 0);
     self.tableView.contentInset = insect;
-//    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
-//    {
-//        CGRect rect = self.tableView.frame;
-//        rect.origin.y += 20;
-//        self.tableView.frame = rect;
-//    }
     self.tableView.rowHeight = kCellMargin + kCellImageHeight + kCellMargin;
+}
+
+-(void)setupHeaderView {
+    UIView *headerView = [[UIView alloc]init];
+    
+    CGFloat headerViewX = 0;
+    CGFloat headerViewY = 50;
+    CGFloat headerViewW = self.view.bounds.size.width;
+    CGFloat headerViewH = kHeaderViewHeight;
+    headerView.frame = CGRectMake(headerViewX, headerViewY, headerViewW, headerViewH);
+    self.tableView.tableHeaderView = headerView;
+    self.headerView = headerView;
+    
+    [self setupSearchBar];
+    [self setupCloseButton];
 }
 
 /**
  *  设置搜索栏
  */
 - (void)setupSearchBar {
-    
     UISearchBar *searchBar = [[UISearchBar alloc]init];
-    
+    searchBar.placeholder = @"请输入搜索关键字";
     CGFloat searchBarX = 0;
-    CGFloat searchBarY = 50;
-    CGFloat searchBarW = self.view.bounds.size.width;
-    CGFloat searchBarH = 50;
+    CGFloat searchBarY = 0;
+    CGFloat searchBarW = self.headerView.bounds.size.width - kCloseButtonWidth;
+    CGFloat searchBarH = self.headerView.bounds.size.height;
     searchBar.frame = CGRectMake(searchBarX, searchBarY, searchBarW, searchBarH);
     searchBar.delegate = self;
-    self.tableView.tableHeaderView = searchBar;
+    [self.headerView addSubview:searchBar];
     self.searchBar = searchBar;
 }
 
+/**
+ *  设置关闭按钮
+ */
+-(void)setupCloseButton {
+//    UIButtonTypeCustom
+    UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    closeBtn.backgroundColor = [UIColor redColor];
+    [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [closeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [closeBtn addTarget:self action:@selector(closeView) forControlEvents:UIControlEventTouchUpInside];
+    CGFloat btnW = kCloseButtonWidth;
+    CGFloat btnH = self.headerView.bounds.size.height;
+    CGFloat btnX = self.view.bounds.size.width - btnW;
+    CGFloat btnY = 0;
+    closeBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
+    [self.headerView addSubview:closeBtn];
+    self.closeBtn = closeBtn;
+}
+#pragma mark - User Interation
+-(void)closeView {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - NetWork Method
 /**
