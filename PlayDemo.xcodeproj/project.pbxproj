@@ -30,6 +30,7 @@
 		18A6157D1EEFE4D30081BEDD /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A615751EEFE4D30081BEDD /* AFURLRequestSerialization.m */; };
 		18A6157E1EEFE4D30081BEDD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A615771EEFE4D30081BEDD /* AFURLResponseSerialization.m */; };
 		18A6157F1EEFE4D30081BEDD /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A615791EEFE4D30081BEDD /* AFURLSessionManager.m */; };
+		18A7F6E21EF663B100AAB209 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A7F6E11EF663B100AAB209 /* Assets.xcassets */; };
 		18AE60291EF3886300F56F59 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE5FFD1EF3886300F56F59 /* MJRefreshAutoFooter.m */; };
 		18AE602A1EF3886300F56F59 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE5FFF1EF3886300F56F59 /* MJRefreshBackFooter.m */; };
 		18AE602B1EF3886300F56F59 /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AE60011EF3886300F56F59 /* MJRefreshComponent.m */; };
@@ -114,7 +115,6 @@
 		E5F555C21EC0004F004DFC8D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F555C11EC0004F004DFC8D /* main.m */; };
 		E5F555C51EC0004F004DFC8D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F555C41EC0004F004DFC8D /* AppDelegate.m */; };
 		E5F555C81EC0004F004DFC8D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F555C71EC0004F004DFC8D /* ViewController.m */; };
-		E5F555CD1EC0004F004DFC8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5F555CC1EC0004F004DFC8D /* Assets.xcassets */; };
 		E5F555D01EC0004F004DFC8D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5F555CE1EC0004F004DFC8D /* LaunchScreen.storyboard */; };
 		E5F555DB1EC0004F004DFC8D /* PlayDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F555DA1EC0004F004DFC8D /* PlayDemoTests.m */; };
 		E5F55A7B1EC0120B004DFC8D /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F55A791EC0120B004DFC8D /* libiconv.tbd */; };
@@ -182,6 +182,7 @@
 		18A615771EEFE4D30081BEDD /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		18A615781EEFE4D30081BEDD /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		18A615791EEFE4D30081BEDD /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		18A7F6E11EF663B100AAB209 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18AE5FFC1EF3886300F56F59 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		18AE5FFD1EF3886300F56F59 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
 		18AE5FFE1EF3886300F56F59 /* MJRefreshBackFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBackFooter.h; sourceTree = "<group>"; };
@@ -336,7 +337,6 @@
 		E5F555C41EC0004F004DFC8D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		E5F555C61EC0004F004DFC8D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E5F555C71EC0004F004DFC8D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		E5F555CC1EC0004F004DFC8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E5F555CF1EC0004F004DFC8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5F555D11EC0004F004DFC8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5F555D61EC0004F004DFC8D /* PlayDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -887,7 +887,7 @@
 				E56B6CA31EC169AA00648AF4 /* PlayViewController.m */,
 				E5C456F01EC07620003499D4 /* ActivityIndicatorView.h */,
 				E5C456F11EC07620003499D4 /* ActivityIndicatorView.m */,
-				E5F555CC1EC0004F004DFC8D /* Assets.xcassets */,
+				18A7F6E11EF663B100AAB209 /* Assets.xcassets */,
 				E5F555CE1EC0004F004DFC8D /* LaunchScreen.storyboard */,
 				E5F555D11EC0004F004DFC8D /* Info.plist */,
 				E56B6CA51EC1A12200648AF4 /* image */,
@@ -1058,10 +1058,10 @@
 				E56B6CA81EC1A12200648AF4 /* playerBack@2x.png in Resources */,
 				E56B6CA91EC1A12200648AF4 /* playerBack@3x.png in Resources */,
 				E56B6CAE1EC1A77D00648AF4 /* pause@2x.png in Resources */,
+				18A7F6E21EF663B100AAB209 /* Assets.xcassets in Resources */,
 				E5F555D01EC0004F004DFC8D /* LaunchScreen.storyboard in Resources */,
 				18AEF3461EF3CC020060C2D9 /* ZYBannerView.bundle in Resources */,
 				E56B6CAF1EC1A77D00648AF4 /* pause@3x.png in Resources */,
-				E5F555CD1EC0004F004DFC8D /* Assets.xcassets in Resources */,
 				E56B6CB11EC1A77D00648AF4 /* play@3x.png in Resources */,
 				18AE60371EF3886300F56F59 /* MJRefresh.bundle in Resources */,
 			);
