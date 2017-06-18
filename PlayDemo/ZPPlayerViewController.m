@@ -26,7 +26,7 @@ static const NSTimeInterval kZPAnimationDuration = 0.2f;
  *  按钮大小比例
  *  设置为1/6表示按钮大小为平面宽度的六分之一
  */
-static const CGFloat kZPButtonSizeScale = 1.0f / 5;
+static const CGFloat kZPButtonSizeScale = 1.0f / 7;
 /**
  *  子控件之间的间隔
  */
@@ -235,7 +235,9 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     CGFloat fullScreenBtnY = playerSize.height - fullScreenBtnH;
     fullScreenBtn.frame = CGRectMake(fullScreenBtnX, fullScreenBtnY, fullScreenBtnW, fullScreenBtnH);
     [fullScreenBtn addTarget:self action:@selector(showFullScreen) forControlEvents:UIControlEventTouchUpInside];
-    [fullScreenBtn setTitle:@"全屏" forState:UIControlStateNormal];
+    [fullScreenBtn setImage:[UIImage imageNamed:@"enlarge"] forState:UIControlStateNormal];
+    [fullScreenBtn setImage:[UIImage imageNamed:@"enlarge-highlightened"] forState:UIControlStateHighlighted];
+//    [fullScreenBtn setTitle:@"全屏" forState:UIControlStateNormal];
 //    [fullScreenBtn setBackgroundColor:[UIColor greenColor]];
     [self.playController.view addSubview:fullScreenBtn];
     self.fullScreenBtn = fullScreenBtn;
@@ -253,7 +255,9 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     CGFloat btnY = playerSize.height - btnH;
     originalScreenBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
     [originalScreenBtn addTarget:self action:@selector(cancelFullScreen) forControlEvents:UIControlEventTouchUpInside];
-    [originalScreenBtn setTitle:@"恢复" forState:UIControlStateNormal];
+    [originalScreenBtn setImage:[UIImage imageNamed:@"reduce"] forState:UIControlStateNormal];
+    [originalScreenBtn setImage:[UIImage imageNamed:@"reduce-highlightened"] forState:UIControlStateHighlighted];
+//    [originalScreenBtn setTitle:@"恢复" forState:UIControlStateNormal];
 //    [originalScreenBtn setBackgroundColor:[UIColor redColor]];
     originalScreenBtn.hidden = YES;
     [self.playController.view addSubview:originalScreenBtn];
@@ -272,7 +276,9 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     CGFloat btnY = playerSize.height - btnH;
     playBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
     [playBtn addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
-    [playBtn setTitle:@"播放" forState:UIControlStateNormal];
+    [playBtn setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [playBtn setImage:[UIImage imageNamed:@"play-highlightened"] forState:UIControlStateHighlighted];
+//    [playBtn setTitle:@"播放" forState:UIControlStateNormal];
 //    [playBtn setBackgroundColor:[UIColor greenColor]];
     [self.playController.view addSubview:playBtn];
     self.playBtn = playBtn;
@@ -290,7 +296,9 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     CGFloat btnY = playerSize.height - btnH;
     pauseBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
     [pauseBtn addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
-    [pauseBtn setTitle:@"暂停" forState:UIControlStateNormal];
+//    [pauseBtn setTitle:@"暂停" forState:UIControlStateNormal];
+    [pauseBtn setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+    [pauseBtn setImage:[UIImage imageNamed:@"pause-highlightened"] forState:UIControlStateHighlighted];
 //    [pauseBtn setBackgroundColor:[UIColor redColor]];
     [self.playController.view addSubview:pauseBtn];
     self.pauseBtn = pauseBtn;
@@ -306,7 +314,9 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     CGFloat btnY = 0;
     closeBtn.frame = CGRectMake(btnX, btnY, btnW, btnH);
     [closeBtn addTarget:self action:@selector(closePlayerView) forControlEvents:UIControlEventTouchUpInside];
-    [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"close-highlightened"] forState:UIControlStateHighlighted];
+//    [closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
     //    [pauseBtn setBackgroundColor:[UIColor redColor]];
     [self.playController.view addSubview:closeBtn];
 
@@ -338,10 +348,15 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
 -(void) createSuspendButton
 {
     //1.主悬浮按钮
-    DCPathButton *suspendBtn = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"chooser-button-tab"] highlightedImage:[UIImage imageNamed:@"chooser-button-tab-highlighted"]];
+    DCPathButton *suspendBtn = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"add"] highlightedImage:[UIImage imageNamed:@"add-highlighted"]];
+    
     
     //设置位置
     CGSize playerSize = self.playController.view.bounds.size;
+//    CGFloat btnW = playerSize.width * kZPButtonSizeScale;
+//    CGFloat btnH = btnW;
+    
+//    suspendBtn.frame = CGRectMake(0, 0, btnW, btnH);
     CGPoint suspendBtnCenter = CGPointMake(playerSize.width - suspendBtn.bounds.size.width / 2, playerSize.height / 2);
     suspendBtn.dcButtonCenter = suspendBtnCenter;
     
@@ -356,16 +371,16 @@ static const NSTimeInterval kHUDAppearanceDuration = 1.0f;
     
     //2.设置子按钮
     //2.1.截屏
-    DCPathItemButton *screenShootBtn = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-camera"] highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-camera-highlighted"] backgroundImage:[UIImage imageNamed:@"chooser-moment-button"] backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    DCPathItemButton *screenShootBtn = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"camera"] highlightedImage:[UIImage imageNamed:@"camera-highlightened"] backgroundImage:nil backgroundHighlightedImage:nil];
     
-    DCPathItemButton *itemBtn2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-music"] highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-music-highlighted"] backgroundImage:[UIImage imageNamed:@"chooser-moment-button"] backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    DCPathItemButton *muteBtn2 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"mute"] highlightedImage:[UIImage imageNamed:@"mute-highlightened"] backgroundImage:nil backgroundHighlightedImage:nil];
     
-    DCPathItemButton *itemBtn3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-place"]  highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-place-highlighted"] backgroundImage:[UIImage imageNamed:@"chooser-moment-button"] backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    DCPathItemButton *shareBtn3 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"share"]  highlightedImage:[UIImage imageNamed:@"share≥-highlightened"] backgroundImage:nil backgroundHighlightedImage:nil];
     
-    DCPathItemButton *itemBtn4 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-sleep"] highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-sleep-highlighted"] backgroundImage:[UIImage imageNamed:@"chooser-moment-button"] backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
+    DCPathItemButton *likeBtn4 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"like"] highlightedImage:[UIImage imageNamed:@"like-highlightened"] backgroundImage:nil backgroundHighlightedImage:nil];
     
-    DCPathItemButton *itemBtn5 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"chooser-moment-icon-thought"] highlightedImage:[UIImage imageNamed:@"chooser-moment-icon-thought-highlighted"] backgroundImage:[UIImage imageNamed:@"chooser-moment-button"] backgroundHighlightedImage:[UIImage imageNamed:@"chooser-moment-button-highlighted"]];
-    [suspendBtn addPathItems:@[screenShootBtn, itemBtn2, itemBtn3, itemBtn4, itemBtn5]];
+    DCPathItemButton *settingBtn5 = [[DCPathItemButton alloc]initWithImage:[UIImage imageNamed:@"setting"] highlightedImage:[UIImage imageNamed:@"setting-highlightened"] backgroundImage:nil backgroundHighlightedImage:nil];
+    [suspendBtn addPathItems:@[screenShootBtn, muteBtn2, shareBtn3, likeBtn4, settingBtn5]];
 }
 
 
@@ -405,7 +420,9 @@ static const CGFloat ScreenShootViewScale = 0.2f;
     //3.保存截图按钮
     UIButton *saveImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     saveImageBtn.frame = CGRectMake(btnX, saveImageBtnY, btnW, btnH);
-    [saveImageBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [saveImageBtn setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+    [saveImageBtn setImage:[UIImage imageNamed:@"save-highlightened"] forState:UIControlStateHighlighted];
+//    [saveImageBtn setTitle:@"保存" forState:UIControlStateNormal];
     [saveImageBtn addTarget:self action:@selector(saveScreenShotPhoto) forControlEvents:UIControlEventTouchUpInside];
     [screenShotView addSubview:saveImageBtn];
 //    saveImageBtn.backgroundColor = [UIColor blueColor];
@@ -413,7 +430,9 @@ static const CGFloat ScreenShootViewScale = 0.2f;
     //4.分享截图按钮
     UIButton *shareImageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     shareImageBtn.frame = CGRectMake(btnX, shareImageBtnY, btnW, btnH);
-    [shareImageBtn setTitle:@"分享" forState:UIControlStateNormal];
+    [shareImageBtn setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [shareImageBtn setImage:[UIImage imageNamed:@"share-highlightened"] forState:UIControlStateHighlighted];
+//    [shareImageBtn setTitle:@"分享" forState:UIControlStateNormal];
 //    [shareImageBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
     [screenShotView addSubview:shareImageBtn];
 //    shareImageBtn.backgroundColor = [UIColor greenColor];
