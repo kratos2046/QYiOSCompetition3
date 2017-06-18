@@ -27,6 +27,7 @@
 		184FF35A1EE82186002293B5 /* DCPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FF3571EE82186002293B5 /* DCPathButton.m */; };
 		184FF35B1EE82186002293B5 /* DCPathItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FF3591EE82186002293B5 /* DCPathItemButton.m */; };
 		188135BA1EF4315E00F77E62 /* ZPSearchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */; };
+		188E01C11EF6A25700970DA5 /* CollectionReusableBannerHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 188E01C01EF6A25700970DA5 /* CollectionReusableBannerHeaderView.m */; };
 		189629261EF03CD5005C3889 /* ZPChannelPageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */; };
 		189A11651EF2A56B007B615C /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11521EF2A56B007B615C /* AFAutoPurgingImageCache.m */; };
 		189A11661EF2A56B007B615C /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 189A11541EF2A56B007B615C /* AFImageDownloader.m */; };
@@ -190,6 +191,8 @@
 		184FF3591EE82186002293B5 /* DCPathItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPathItemButton.m; sourceTree = "<group>"; };
 		188135B81EF4315E00F77E62 /* ZPSearchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPSearchPageViewController.h; sourceTree = "<group>"; };
 		188135B91EF4315E00F77E62 /* ZPSearchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPSearchPageViewController.m; sourceTree = "<group>"; };
+		188E01BF1EF6A25700970DA5 /* CollectionReusableBannerHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionReusableBannerHeaderView.h; sourceTree = "<group>"; };
+		188E01C01EF6A25700970DA5 /* CollectionReusableBannerHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionReusableBannerHeaderView.m; sourceTree = "<group>"; };
 		189629241EF03CD5005C3889 /* ZPChannelPageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPChannelPageViewCell.h; sourceTree = "<group>"; };
 		189629251EF03CD5005C3889 /* ZPChannelPageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPChannelPageViewCell.m; sourceTree = "<group>"; };
 		189A11511EF2A56B007B615C /* AFAutoPurgingImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAutoPurgingImageCache.h; sourceTree = "<group>"; };
@@ -854,6 +857,8 @@
 		18C75BD31EF5571E00EF5B74 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				188E01BF1EF6A25700970DA5 /* CollectionReusableBannerHeaderView.h */,
+				188E01C01EF6A25700970DA5 /* CollectionReusableBannerHeaderView.m */,
 				18C75BD41EF5573000EF5B74 /* RecommentCollectionViewCell.h */,
 				18C75BD51EF5573000EF5B74 /* RecommentCollectionViewCell.m */,
 				18C75BD61EF5573000EF5B74 /* CollectionReusableHeadView.h */,
@@ -1187,6 +1192,7 @@
 				18AE602B1EF3886300F56F59 /* MJRefreshComponent.m in Sources */,
 				18E52A761EEFA6BF00244A7A /* TYTabPagerController.m in Sources */,
 				18C5520D1ED917430012E16B /* ZPVideoProgressBar.m in Sources */,
+				188E01C11EF6A25700970DA5 /* CollectionReusableBannerHeaderView.m in Sources */,
 				18AE60351EF3886300F56F59 /* MJRefreshNormalHeader.m in Sources */,
 				18AEF2E51EF3C6DC0060C2D9 /* ZPRecommendNewViewController.m in Sources */,
 				181B82891EF69F120040D451 /* UIImageView+HighlightedWebCache.m in Sources */,
